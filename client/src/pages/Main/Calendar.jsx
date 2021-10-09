@@ -1,18 +1,18 @@
 import React, {useState} from 'react'
 import { View, Text, StyleSheet, Dimensions, TouchableOpacity } from 'react-native'
 import FriendList from '../../components/friendList/FriendList';
+import { UserDataSet } from '../../DataSet';
 
 const {width} = Dimensions.get("window");
 
-
 const Calendar = () => {
-    const [friendsList, setFriendsList] = useState(friends);
+    const [friendsList, setFriendsList] = useState(UserDataSet);
     const [selectedId, setSelectedId] = useState(0);
 
     const selectHandler = (key) => {
         setSelectedId(key)
     }
-
+    
     const friend_components = friendsList.map((friend, index) => {
         return (
             // <TouchableOpacity>
@@ -28,7 +28,7 @@ const Calendar = () => {
                 {friend_components}
             </View>
             <View>
-                <Text>{friendsList[selectedId].name}</Text>
+                <Text>{friendsList[selectedId].username}</Text>
             </View>
         </View>
     )
@@ -48,13 +48,3 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     }
 })
-
-
-const friends = [
-    {name : "괴도리"}, 
-    {name: "석진이"}, 
-    {name: "오복이"}, 
-    {name: "하하"}, 
-    {name: "정형돈"}, 
-    {name: "성기훈"}
-]
