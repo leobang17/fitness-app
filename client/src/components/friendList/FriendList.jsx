@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
         borderRadius: 75,
         textAlign: 'center',
         backgroundColor: '#DDDDDD',
+        // overflow: 'hidden'
     },
     friendList__selected: {
         color: 'white',
