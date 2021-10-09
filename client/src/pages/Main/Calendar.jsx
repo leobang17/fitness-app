@@ -1,23 +1,37 @@
-import React, {useState} from 'react'
-import { View, Text, StyleSheet, Dimensions, TouchableOpacity } from 'react-native'
+import React, {useState, useCallback} from 'react'
+import { View, Text, StyleSheet, Dimensions, TouchableOpacity, RefreshControl, ScrollView } from 'react-native'
 import { AntDesign } from '@expo/vector-icons'; 
 import {Calendar, CalendarList, Agenda, Arrow} from 'react-native-calendars';
 
 
 import FriendList from '../../components/friendList/FriendList';
 import { UserDataSet } from '../../DataSet';
+import RoutineBox from '../../components/routineBox/RoutineBox';
+import AddStartBtn from '../../components/addStartBtn/AddStartBtn';
 
 
 const {width} = Dimensions.get("window");
 
+const wait = (timeout) => {
+    return new Promise(resolve => setTimeout(resolve, timeout));
+  }
+
 const CalendarScreen = () => {
     let today = new Date()
-    today = `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}`;
+    today = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
+
 
     // States
     const [friendsList, setFriendsList] = useState(UserDataSet);
     const [selectedId, setSelectedId] = useState(0);
     const [selectedDate, setSelectedDate] = useState(today);
+    const [refreshing, setRefreshing] = useState(false);
+
+    const onRefresh = useCallback(() => {
+        setRefreshing(true);
+        wait(500).then(() => setRefreshing(false));
+        setSelectedDate(today);
+      }, []);
 
     const selectHandler = (key) => {
         setSelectedId(key)
@@ -30,7 +44,17 @@ const CalendarScreen = () => {
         }): null
     
     return (
-        <View style = {styles.container}>
+        <ScrollView 
+            style = {styles.container}
+            contentContainerStyle={styles.scrollView}
+            refreshControl={
+                <RefreshControl
+                    refreshing={refreshing}
+                    onRefresh={onRefresh}
+                />
+            }
+            showsVerticalScrollIndicator = {false}
+        >
             <View style = {styles.calender__header} />
             <View style = {styles.friends__container}>
                 {friend_components}
@@ -44,11 +68,24 @@ const CalendarScreen = () => {
             <Calendar
                 onDayPress={(day) => {setSelectedDate(day.dateString)}}
                 markedDates={{
-                    "2021-10-10" : {selected: true, selectedColor: '#87C5D6'},
+                    [selectedDate] : {selected: true, selectedColor: '#87C5D6'},
                 }}
-                
+                style = {{borderRadius: 10}}
             />
-        </View>
+            <View style = {{marginTop: 10}}>
+                <ScrollView showsVerticalScrollIndicator = {false}>
+                    {
+                        routines.map((routine, index) => {
+                            return <RoutineBox key = {index} routine = {routine} />
+                        })
+                    }
+                </ScrollView>
+            </View>
+            <View style = {{flex: 1, flexDirection: 'row', width: width * 0.5, alignSelf: 'center', justifyContent: 'space-around'}}>
+                <AddStartBtn params = {"운동 추가"} />
+                <AddStartBtn params = {"운동 시작"} />
+            </View>
+        </ScrollView>
     )
 }
 
@@ -74,3 +111,7 @@ const styles = StyleSheet.create({
         fontSize: 18
     }
 })
+
+const routines = [
+    "벤치프레스", "오버헤드프레스", "풀업", "덤벨프레스", "싯업", "백익스텐션"
+]

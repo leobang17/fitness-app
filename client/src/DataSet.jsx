@@ -40,6 +40,4 @@ const RoutineDataSet = [
 ]
 
 
-
-
 export {UserDataSet, RoutineDataSet}
