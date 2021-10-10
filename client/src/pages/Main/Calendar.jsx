@@ -1,7 +1,7 @@
 import React, {useState, useCallback} from 'react'
 import { View, Text, StyleSheet, Dimensions, TouchableOpacity, RefreshControl, ScrollView } from 'react-native'
 import { AntDesign } from '@expo/vector-icons'; 
-import {Calendar, CalendarList, Agenda, Arrow} from 'react-native-calendars';
+import {Calendar, CalendarList, Agenda, Arrow, WeekCalendar} from 'react-native-calendars';
 
 
 import FriendList from '../../components/friendList/FriendList';
@@ -71,6 +71,17 @@ const CalendarScreen = () => {
                     [selectedDate] : {selected: true, selectedColor: '#87C5D6'},
                 }}
                 style = {{borderRadius: 10}}
+            />
+            <Agenda 
+                onDayPress={(day) => {setSelectedDate(day.dateString)}}
+                markedDates = {{
+                    [selectedDate] : {selected: true, selectedColor: '#87C5D6'}
+                }}
+                // hideKnob={true}
+                // renderItem={(item, firstItemInDay) => {return (<View />);}}
+
+                style = {{borderRadius: 10, borderBottomRightRadius: 10}}
+
             />
             <View style = {{marginTop: 10}}>
                 <ScrollView showsVerticalScrollIndicator = {false}>
