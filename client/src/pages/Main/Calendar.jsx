@@ -93,7 +93,7 @@ const CalendarScreen = ({ navigation }) => {
                 </ScrollView>
             </View>
             <View style = {{flex: 1, flexDirection: 'row', width: width * 0.5, alignSelf: 'center', justifyContent: 'space-around'}}>
-                <AddStartBtn params = {"운동 추가"} onPress = {() => navigation.navigate("AddRoutineScreen")} />
+                <AddStartBtn params = {"운동 추가"} onPress = {() => navigation.navigate("AddRoutine")} />
                 <AddStartBtn params = {"운동 시작"} onPress = {() => navigation.navigate("StartWorkout")} />
             </View>
         </ScrollView>

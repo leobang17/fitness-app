@@ -10,12 +10,12 @@ import { AddRoutineScreen, AddWorkoutScreen } from '..';
 
 const MainTab = createBottomTabNavigator();
 const AddRoutineTab = createBottomTabNavigator();
-const Stack = createNativeStackNavigator();
+const MainStack = createNativeStackNavigator();
 const CalendarStack = createNativeStackNavigator()
 
 const AddRoutine = () => {
     return (
-        <AddRoutineTab.Navigator>
+        <AddRoutineTab.Navigator screenOptions = {{headerShown: false}}>
             <AddRoutineTab.Screen name = "AddRoutineScreen" component = {AddRoutineScreen} />
             <AddRoutineTab.Screen name = "AddWorkoutScreen" component = {AddWorkoutScreen} />
         </AddRoutineTab.Navigator>
@@ -25,37 +25,28 @@ const AddRoutine = () => {
 const StartWorkout = ({ onPress}) => {
     return (
         <TouchableOpacity onPress = {() => onPress()}>
-
             <View><Text>운동 시작!</Text></View>
         </TouchableOpacity>
     )
 }
 
-const CalendarView = () => {
+const CalendarRoutineTab = () => {
     return (
-        <CalendarStack.Navigator>
-            <CalendarStack.Screen name = "Calendar" component = {Calendar} />
-            <CalendarStack.Screen name = "AddRoutineScreen" component = {AddRoutine} />
-            <CalendarStack.Screen name = "StartWorkout" component = {StartWorkout} />
-        </CalendarStack.Navigator>
+        <MainTab.Navigator>
+            <MainTab.Screen name = "Calendar" component = {Calendar} options = {{headerShown: false}} />
+            <MainTab.Screen name = "Routine" component = {Routine} />
+        </MainTab.Navigator>
     )
 }
 
 
 const Main = () => {
     return (
-        <MainTab.Navigator screenOptions = {{headerShown : false}}>
-            <MainTab.Screen name = "Calendar" component = {CalendarView} />
-            <MainTab.Screen name = "Routine" component = {Routine} />
-            {/* <MainTab.Screen name = "AddRoutine" component = {AddRoutine} /> */}
-            {/* <Stack.Screen name = "AddRoutineScreen" component = {AddRoutineScreen} options = {{headerShown : true}} /> */}
-        </MainTab.Navigator>
-        // <Stack.Navigator screenOptions = {{headerShown : false}}>
-        //     <Stack.Screen name = "Calendar" component = {Calendar} />
-        //     <Stack.Screen name = "Routine" component = {Routine} />
-        //     {/* <MainTab.Screen name = "AddRoutine" component = {AddRoutine} /> */}
-        //     <Stack.Screen name = "AddRoutineScreen" component = {AddRoutineScreen} options = {{headerShown : true}} />
-        // </Stack.Navigator>
+        <MainStack.Navigator>
+            <MainStack.Screen name = "Calendar" component = {CalendarRoutineTab} options = {{headerShown: false}} />
+            <MainStack.Screen name = "AddRoutine" component = {AddRoutine} />
+            <MainStack.Screen name = "StartWorkout" component = {StartWorkout} />
+        </MainStack.Navigator>
     )
 }
 
