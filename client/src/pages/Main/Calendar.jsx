@@ -1,5 +1,5 @@
 import React, {useState, useCallback} from 'react'
-import { View, Text, StyleSheet, Dimensions, TouchableOpacity, RefreshControl, ScrollView } from 'react-native'
+import { View, Text, StyleSheet, Dimensions, TouchableOpacity, RefreshControl, ScrollView, Button } from 'react-native'
 import { AntDesign } from '@expo/vector-icons'; 
 import {Calendar, CalendarList, Agenda, Arrow, WeekCalendar} from 'react-native-calendars';
 
@@ -16,7 +16,7 @@ const wait = (timeout) => {
     return new Promise(resolve => setTimeout(resolve, timeout));
   }
 
-const CalendarScreen = () => {
+const CalendarScreen = ({ navigation }) => {
     let today = new Date()
     today = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
 
@@ -93,8 +93,8 @@ const CalendarScreen = () => {
                 </ScrollView>
             </View>
             <View style = {{flex: 1, flexDirection: 'row', width: width * 0.5, alignSelf: 'center', justifyContent: 'space-around'}}>
-                <AddStartBtn params = {"운동 추가"} />
-                <AddStartBtn params = {"운동 시작"} />
+                <AddStartBtn params = {"운동 추가"} onPress = {() => navigation.navigate("AddRoutineScreen")} />
+                <AddStartBtn params = {"운동 시작"} onPress = {() => navigation.navigate("StartWorkout")} />
             </View>
         </ScrollView>
     )
