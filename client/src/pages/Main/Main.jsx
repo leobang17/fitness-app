@@ -5,13 +5,13 @@ import { NavigationContainer } from '@react-navigation/native';
 import Calendar from './Calendar';
 import Routine from './Routine';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { AddRoutineScreen, AddWorkoutScreen } from '..';
 
 
 const MainTab = createBottomTabNavigator();
-const AddRoutineTab = createBottomTabNavigator();
+const AddRoutineTab = createMaterialTopTabNavigator();
 const MainStack = createNativeStackNavigator();
-const CalendarStack = createNativeStackNavigator()
 
 const AddRoutine = () => {
     return (
