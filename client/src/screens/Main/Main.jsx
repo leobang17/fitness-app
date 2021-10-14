@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
-import Calendar from './Calendar';
+import Calendar from '../Calendar/CalendarScreen';
 import Routine from './Routine';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
@@ -15,7 +15,7 @@ const MainStack = createNativeStackNavigator();
 
 const AddRoutine = () => {
     return (
-        <AddRoutineTab.Navigator screenOptions = {{headerShown: false}}>
+        <AddRoutineTab.Navigator screenOptions = {{headerShown: false, swipeEnabled : false}} >
             <AddRoutineTab.Screen name = "AddRoutineScreen" component = {AddRoutineScreen} />
             <AddRoutineTab.Screen name = "AddWorkoutScreen" component = {AddWorkoutScreen} />
         </AddRoutineTab.Navigator>
