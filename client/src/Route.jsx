@@ -2,7 +2,20 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import React from 'react'
-import { ApplyRoutineDetailScreen, ApplyRoutineScreen, ApplyWorkoutAddScreen, ApplyWorkoutScreen, CalendarScreen, ManageRoutineDetailScreen, ManageRoutineScreen, ManageWorkoutAddScreen, ManageWorkoutScreen, StartWorkoutScreen } from './screens';
+
+import { 
+    ApplyRoutineDetailScreen, 
+    ApplyRoutineScreen, 
+    ApplyWorkoutAddScreen, 
+    ApplyWorkoutScreen, 
+    CalendarScreen, 
+    ManageRoutineDetailScreen, 
+    ManageRoutineScreen, 
+    ManageWorkoutAddScreen, 
+    ManageWorkoutScreen, 
+    StartWorkoutScreen 
+} from './screens';
+
 
 const AppStack = createNativeStackNavigator();
 
@@ -24,6 +37,7 @@ const Route = () => {
         </AppStack.Navigator>
     )
 }
+
 
 const MainBottomTab = () => {
     return (
@@ -52,6 +66,7 @@ const ManageWorkoutStack = () => {
         </ManageWorkoutStack.Navigator>
     )
 }
+
 
 const ApplyTopTab = () => {
     <ApplyTopTab.Navigator>
