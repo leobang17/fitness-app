@@ -1,6 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React, { useState } from 'react';
+import Route from './src/Route';
 
 import { Login, Main } from './src/screens';
 
@@ -23,7 +24,7 @@ export default function App() {
       >
         {
           isSignedIn ? (
-              <Stack.Screen name = "Main" component = {Main} />
+              <Stack.Screen name = "Main" component = {Route} />
             )
             : (
               <Stack.Screen name = "Login" component = {Login} initialParams = {{pressHandler : pressHandler}} />

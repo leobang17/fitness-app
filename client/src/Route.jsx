@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import React from 'react'
 
 import { 
+    AddRoutineScreen,
     ApplyRoutineDetailScreen, 
     ApplyRoutineScreen, 
     ApplyWorkoutAddScreen, 
@@ -31,25 +32,25 @@ const ApplyWorkoutStack = createNativeStackNavigator();
 const Route = () => {
     return (
         <AppStack.Navigator>
-            <AppStack.Screen name = "MainBottomTab" component = {MainBottomTab} />
-            <AppStack.Screen name = "ApplyTopTab" component = {ApplyTopTab} />
+            <AppStack.Screen name = "MainBottomTab" component = {_MainBottomTab} />
+            <AppStack.Screen name = "ApplyTopTab" component = {_ApplyTopTab} />
             <AppStack.Screen name = "StartWorkout" component = {StartWorkoutScreen} />
         </AppStack.Navigator>
     )
 }
 
 
-const MainBottomTab = () => {
+const _MainBottomTab = () => {
     return (
         <MainBottomTab.Navigator>
             <MainBottomTab.Screen name = "Calendar" component = { CalendarScreen } />
-            <MainBottomTab.Screen name = "ManageRoutineStack" component = {ManageRoutineStack} />
-            <MainBottomTab.Screen name = "ManageWorkoutStack" component = {ManageWorkoutStack} />
+            <MainBottomTab.Screen name = "ManageRoutineStack" component = {_ManageRoutineStack} />
+            <MainBottomTab.Screen name = "ManageWorkoutStack" component = {_ManageWorkoutStack} />
         </MainBottomTab.Navigator>
     )
 }
 
-const ManageRoutineStack = () => {
+const _ManageRoutineStack = () => {
     return (
         <ManageRoutineStack.Navigator>
             <ManageRoutineStack.Screen name = "ManageRoutine" component = {ManageRoutineScreen} />
@@ -58,7 +59,7 @@ const ManageRoutineStack = () => {
     )
 }
 
-const ManageWorkoutStack = () => {
+const _ManageWorkoutStack = () => {
     return (
         <ManageWorkoutStack.Navigator>
             <ManageWorkoutStack.Screen name = "ManageWorkout" component = {ManageWorkoutScreen} />
@@ -68,25 +69,31 @@ const ManageWorkoutStack = () => {
 }
 
 
-const ApplyTopTab = () => {
-    <ApplyTopTab.Navigator>
-        <ApplyTopTab.Screen name = "ApplyRoutineStack" component = {ApplyRoutineStack} />
-        <ApplyTopTab.Screen name = "ApplyWorkoutStack" component = {ApplyWorkoutStack} />
-    </ApplyTopTab.Navigator>
+const _ApplyTopTab = () => {
+    return (
+        <ApplyTopTab.Navigator>
+            <ApplyTopTab.Screen name = "ApplyRoutineStack" component = {_ApplyRoutineStack} />
+            <ApplyTopTab.Screen name = "ApplyWorkoutStack" component = {_ApplyWorkoutStack} />
+        </ApplyTopTab.Navigator>
+    )
 }
 
-const ApplyRoutineStack = () => {
-    <ApplyRoutineStack.Navigator>
-        <ApplyRoutineStack.Screen name = "ApplyRoutine" component = {ApplyRoutineScreen} />
-        <ApplyRoutineScreen.Screen name = "ApplyRoutineDetail" component = {ApplyRoutineDetailScreen} />
-    </ApplyRoutineStack.Navigator>
+const _ApplyRoutineStack = () => {
+    return (
+        <ApplyRoutineStack.Navigator>
+            <ApplyRoutineStack.Screen name = "ApplyRoutine" component = {ApplyRoutineScreen} />
+            <ApplyRoutineStack.Screen name = "ApplyRoutineDetail" component = {ApplyRoutineDetailScreen} />
+        </ApplyRoutineStack.Navigator>
+    )
 }
 
-const ApplyWorkoutStack = () => {
-    <ApplyWorkoutStack.Navigator>
-        <ApplyWorkoutStack.Screen name = "ApplyWorkout" component = {ApplyWorkoutScreen} />
-        <ApplyWorkoutStack.Screen name = "ApplyWorkoutAdd" component = {ApplyWorkoutAddScreen} />
-    </ApplyWorkoutStack.Navigator>
+const _ApplyWorkoutStack = () => {
+    return (
+        <ApplyWorkoutStack.Navigator>
+            <ApplyWorkoutStack.Screen name = "ApplyWorkout" component = {ApplyWorkoutScreen} />
+            <ApplyWorkoutStack.Screen name = "ApplyWorkoutAdd" component = {ApplyWorkoutAddScreen} />
+        </ApplyWorkoutStack.Navigator>
+    )
 }
 
 
