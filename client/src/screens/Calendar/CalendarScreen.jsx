@@ -72,7 +72,7 @@ const CalendarScreen = ({ navigation }) => {
                 }}
                 style = {{borderRadius: 10}}
             />
-            <Agenda 
+            {/* <Agenda 
                 onDayPress={(day) => {setSelectedDate(day.dateString)}}
                 markedDates = {{
                     [selectedDate] : {selected: true, selectedColor: '#87C5D6'}
@@ -82,7 +82,7 @@ const CalendarScreen = ({ navigation }) => {
 
                 style = {{borderRadius: 10, borderBottomRightRadius: 10}}
 
-            />
+            /> */}
             <View style = {{marginTop: 10}}>
                 <ScrollView showsVerticalScrollIndicator = {false}>
                     {

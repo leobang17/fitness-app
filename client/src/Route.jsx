@@ -31,9 +31,9 @@ const ApplyWorkoutStack = createNativeStackNavigator();
 
 const Route = () => {
     return (
-        <AppStack.Navigator>
+        <AppStack.Navigator screenOptions = {{headerShown : false}}>
             <AppStack.Screen name = "MainBottomTab" component = {_MainBottomTab} />
-            <AppStack.Screen name = "ApplyTopTab" component = {_ApplyTopTab} />
+            <AppStack.Screen name = "ApplyTopTab" component = {_ApplyTopTab} options = {{headerShown: true}} />
             <AppStack.Screen name = "StartWorkout" component = {StartWorkoutScreen} />
         </AppStack.Navigator>
     )
@@ -42,7 +42,7 @@ const Route = () => {
 
 const _MainBottomTab = () => {
     return (
-        <MainBottomTab.Navigator>
+        <MainBottomTab.Navigator screenOptions = {{headerShown: false}}>
             <MainBottomTab.Screen name = "Calendar" component = { CalendarScreen } />
             <MainBottomTab.Screen name = "ManageRoutineStack" component = {_ManageRoutineStack} />
             <MainBottomTab.Screen name = "ManageWorkoutStack" component = {_ManageWorkoutStack} />
@@ -80,7 +80,7 @@ const _ApplyTopTab = () => {
 
 const _ApplyRoutineStack = () => {
     return (
-        <ApplyRoutineStack.Navigator>
+        <ApplyRoutineStack.Navigator screenOptions = {{headerShown : false}}>
             <ApplyRoutineStack.Screen name = "ApplyRoutine" component = {ApplyRoutineScreen} />
             <ApplyRoutineStack.Screen name = "ApplyRoutineDetail" component = {ApplyRoutineDetailScreen} />
         </ApplyRoutineStack.Navigator>
