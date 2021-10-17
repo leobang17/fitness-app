@@ -24,6 +24,7 @@ const MainBottomTab = createBottomTabNavigator();
 const ManageRoutineStack = createNativeStackNavigator();
 const ManageWorkoutStack = createNativeStackNavigator();
 
+const ApplyStack = createNativeStackNavigator();
 const ApplyTopTab = createMaterialTopTabNavigator()
 const ApplyRoutineStack = createNativeStackNavigator();
 const ApplyWorkoutStack = createNativeStackNavigator();
@@ -33,7 +34,7 @@ const Route = () => {
     return (
         <AppStack.Navigator screenOptions = {{headerShown : false}}>
             <AppStack.Screen name = "MainBottomTab" component = {_MainBottomTab} />
-            <AppStack.Screen name = "ApplyTopTab" component = {_ApplyTopTab} options = {{headerShown: true}} />
+            <AppStack.Screen name = "ApplyStack" component = {_ApplyStack} options = {{headerShown: true}} />
             <AppStack.Screen name = "StartWorkout" component = {StartWorkoutScreen} />
         </AppStack.Navigator>
     )
@@ -68,21 +69,30 @@ const _ManageWorkoutStack = () => {
     )
 }
 
+const _ApplyStack = () => {
+    return (
+        <ApplyStack.Navigator screenOptions = {{headerShown : false}} >
+            <ApplyStack.Screen name = "ApplyTopTab" component = {_ApplyTopTab} />
+            <ApplyStack.Screen name = "ApplyRoutineDetail" component = {ApplyRoutineDetailScreen}/>
+            <ApplyStack.Screen name = "ApplyWorkoutAdd" component = {ApplyWorkoutAddScreen} />
+        </ApplyStack.Navigator>
+    )
+}
 
 const _ApplyTopTab = () => {
     return (
         <ApplyTopTab.Navigator>
-            <ApplyTopTab.Screen name = "ApplyRoutineStack" component = {_ApplyRoutineStack} />
-            <ApplyTopTab.Screen name = "ApplyWorkoutStack" component = {_ApplyWorkoutStack} />
+            <ApplyTopTab.Screen name = "ApplyRoutineStack" component = {ApplyRoutineScreen} />
+            <ApplyTopTab.Screen name = "ApplyWorkoutStack" component = {ApplyWorkoutScreen} />
         </ApplyTopTab.Navigator>
     )
 }
 
 const _ApplyRoutineStack = () => {
     return (
-        <ApplyRoutineStack.Navigator screenOptions = {{headerShown : false}}>
+        <ApplyRoutineStack.Navigator>
             <ApplyRoutineStack.Screen name = "ApplyRoutine" component = {ApplyRoutineScreen} />
-            <ApplyRoutineStack.Screen name = "ApplyRoutineDetail" component = {ApplyRoutineDetailScreen} />
+            {/* <ApplyRoutineStack.Screen name = "ApplyRoutineDetail" component = {ApplyRoutineDetailScreen} /> */}
         </ApplyRoutineStack.Navigator>
     )
 }

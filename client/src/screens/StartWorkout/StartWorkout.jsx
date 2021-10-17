@@ -5,7 +5,6 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 const StartWorkout = () => {
     return (
         <SafeAreaView>
-
             <Text>운동 시작 screen</Text>
         </SafeAreaView>
         
