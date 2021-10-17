@@ -2,7 +2,7 @@ import React, {useState, useCallback} from 'react'
 import { View, Text, StyleSheet, Dimensions, TouchableOpacity, RefreshControl, ScrollView, Button } from 'react-native'
 import { AntDesign } from '@expo/vector-icons'; 
 import {Calendar, CalendarList, Agenda, Arrow, WeekCalendar} from 'react-native-calendars';
-
+import axios from "axios";
 
 import FriendList from '../../components/friendList/FriendList';
 import { UserDataSet } from '../../DataSet';
@@ -20,6 +20,10 @@ const CalendarScreen = ({ navigation }) => {
     let today = new Date()
     today = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
 
+    axios.get(`http://localhost:3000/api/user`)
+        .then((res) => {
+            console.log(res);
+        })
 
     // States
     const [friendsList, setFriendsList] = useState(UserDataSet);

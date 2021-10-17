@@ -1,0 +1,24 @@
+{
+    "user" : [
+        {
+            "id" : 1,
+            "username" : "윤선영"
+        },
+        {
+            "id" : 2,
+            "username" : "방석진"
+        },
+        {
+            "id" : 3,
+            "username" : "이성민"
+        },
+        {
+            "id" : 4,
+            "username" : "민정호"
+        },
+        {
+            "id" : 5,
+            "username" : "김하린"
+        }   
+    ]
+}
