@@ -19,15 +19,15 @@ const wait = (timeout) => {
 const CalendarScreen = ({ navigation }) => {
     let today = new Date()
     today = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
-    const [test, setTest] = useState([]);
+    const [test, setTest] = useState();
 
     useEffect(() => {
 
         const response = axios.get(`http://localhost:3000/api/user`)
         response.then((res) => {
-            console.log(res.data.user);
+            console.log(res.data.user[0]);
             console.log(typeof res.data.user);
-            setTest(res.data.user);
+            setFriendsList(res.data.user);
         }).catch((err) => console.log(err));
 
 
@@ -49,11 +49,16 @@ const CalendarScreen = ({ navigation }) => {
     }, []);
 
     useEffect(() => {
-        console.log(test[0]);
+        try {
+            console.log(test);
+            console.log(typeof test);
+        } catch {
+            console.log("아직로딩 안됨");
+        }
     }, [test])
 
     // States
-    const [friendsList, setFriendsList] = useState(UserDataSet);
+    const [friendsList, setFriendsList] = useState([]);
     const [selectedId, setSelectedId] = useState(0);
     const [selectedDate, setSelectedDate] = useState(today);
     const [refreshing, setRefreshing] = useState(false);
@@ -86,17 +91,7 @@ const CalendarScreen = ({ navigation }) => {
             }
             showsVerticalScrollIndicator = {false}
         >
-            <Text>{test.username}</Text>
 
-            {/* {
-                test.map((iter) => {
-                    return (
-                        <View>
-                            <Text>{iter}</Text>
-                        </View>
-                    )
-                })
-            } */}
             <View style = {styles.calender__header} />
             <View style = {styles.friends__container}>
                 {friend_components}
@@ -105,7 +100,11 @@ const CalendarScreen = ({ navigation }) => {
                 </TouchableOpacity>
             </View>
             <View style = {styles.selected__user}>
-                <Text style = {styles.selected__user__text}>{friendsList[selectedId].username}</Text>
+                { 
+                    friendsList[selectedId] ? (
+                        <Text style = {styles.selected__user__text}>{friendsList[selectedId].username}</Text>
+                    ) : null
+                }
             </View>
             <Calendar
                 onDayPress={(day) => {setSelectedDate(day.dateString)}}
