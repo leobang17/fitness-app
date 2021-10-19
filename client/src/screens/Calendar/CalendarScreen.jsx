@@ -1,4 +1,4 @@
-import React, {useState, useCallback} from 'react'
+import React, {useState, useCallback, useEffect} from 'react'
 import { View, Text, StyleSheet, Dimensions, TouchableOpacity, RefreshControl, ScrollView, Button } from 'react-native'
 import { AntDesign } from '@expo/vector-icons'; 
 import {Calendar, CalendarList, Agenda, Arrow, WeekCalendar} from 'react-native-calendars';
@@ -19,17 +19,45 @@ const wait = (timeout) => {
 const CalendarScreen = ({ navigation }) => {
     let today = new Date()
     today = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
+    const [test, setTest] = useState([]);
 
-    axios.get(`http://localhost:3000/api/user`)
-        .then((res) => {
-            console.log(res);
-        })
+    useEffect(() => {
+
+        const response = axios.get(`http://localhost:3000/api/user`)
+        response.then((res) => {
+            console.log(res.data.user);
+            console.log(typeof res.data.user);
+            setTest(res.data.user);
+        }).catch((err) => console.log(err));
+
+
+        // const getFriendLists = async () => {
+        //     try {
+        //         const res = await axios.get(`http://localhost:3000/api/user`)
+        //             // .then((res) => {
+        //                 // console.log
+        //             // })
+        //         console.log(res.data.user);
+        //         console.log(typeof(res.data.user));
+        //         setTest(res.data.user);
+                
+        //     } catch (err) {
+        //         console.log(err);
+        //     }
+        // }
+        // getFriendLists();
+    }, []);
+
+    useEffect(() => {
+        console.log(test[0]);
+    }, [test])
 
     // States
     const [friendsList, setFriendsList] = useState(UserDataSet);
     const [selectedId, setSelectedId] = useState(0);
     const [selectedDate, setSelectedDate] = useState(today);
     const [refreshing, setRefreshing] = useState(false);
+    
 
     const onRefresh = useCallback(() => {
         setRefreshing(true);
@@ -46,7 +74,6 @@ const CalendarScreen = ({ navigation }) => {
                 <FriendList friend = {friend} key = {index} selectHandler = {selectHandler} index = {index} selected = {selectedId}/>
             )
         }): null
-    
     return (
         <ScrollView 
             style = {styles.container}
@@ -59,6 +86,17 @@ const CalendarScreen = ({ navigation }) => {
             }
             showsVerticalScrollIndicator = {false}
         >
+            <Text>{test.username}</Text>
+
+            {/* {
+                test.map((iter) => {
+                    return (
+                        <View>
+                            <Text>{iter}</Text>
+                        </View>
+                    )
+                })
+            } */}
             <View style = {styles.calender__header} />
             <View style = {styles.friends__container}>
                 {friend_components}
