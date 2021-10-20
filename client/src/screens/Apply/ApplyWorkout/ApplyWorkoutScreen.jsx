@@ -12,7 +12,6 @@ const ApplyWorkoutScreen = ({ navigation }) => {
         <View style = {styles.container}>
             <SearchBar params = {"찾으려는 운동을 검색해보세요."} keywordHandler = {keywordHandler} />
             <Text>{keyword}</Text>
-            
             <Button title = "go to add workout" onPress = {() => navigation.navigate("ApplyWorkoutAdd")} />
         </View>
         
