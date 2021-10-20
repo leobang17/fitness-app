@@ -13,3 +13,6 @@ export {default as ManageRoutineScreen} from "./Manage/ManageRoutine/ManageRouti
 export {default as ManageRoutineDetailScreen} from "./Manage/ManageRoutineDetail/ManageRoutineDetailScreen"
 export {default as ManageWorkoutScreen} from "./Manage/ManageWorkout/ManageWorkoutScreen"
 export {default as ManageWorkoutAddScreen} from "./Manage/ManageWorkoutAdd/ManageWorkoutAddScreen"
+
+
+export const URI = "http://192.168.0.17:3000/api";

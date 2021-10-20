@@ -26,7 +26,6 @@ const styles = StyleSheet.create({
         width: width * 0.9,
         height: 35,
         alignSelf: 'center',
-        marginVertical: 10,
         borderRadius: 20,
         backgroundColor: "#E6E6FA",
         display: 'flex',
