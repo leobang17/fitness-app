@@ -49,7 +49,8 @@ const CalendarScreen = ({ navigation }) => {
                     date : selectedDate,
                 }
                 const res = await axios.get(uri, { params });
-                console.log(res.data);
+
+                setRecords(res.data);
             } catch (err) {
                 console.log(err);
             }
@@ -122,8 +123,8 @@ const CalendarScreen = ({ navigation }) => {
             <View style = {{marginTop: 10}}>
                 <ScrollView showsVerticalScrollIndicator = {false}>
                     {
-                        routines.map((routine, index) => {
-                            return <RoutineBox key = {index} routine = {routine} />
+                        records.map((record, index) => {
+                            return <RoutineBox key = {index} record = {record} />
                         })
                     }
                 </ScrollView>
@@ -158,7 +159,3 @@ const styles = StyleSheet.create({
         fontSize: 18
     }
 })
-
-const routines = [
-    "벤치프레스", "오버헤드프레스", "풀업", "덤벨프레스", "싯업", "백익스텐션"
-]

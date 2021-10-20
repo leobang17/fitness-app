@@ -13,7 +13,8 @@ app.get("/api/user", (req, res) => {
 
 app.get("/api/record/:id/:date", (req, res) => {
     res.set({'access-control-allow-origin':'http://localhost:19007'});
-    res.send(req.params);
+    // res.send(req.params);
+    res.send(record.routine);
     
 })
 

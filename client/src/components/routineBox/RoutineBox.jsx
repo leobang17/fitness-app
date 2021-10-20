@@ -3,11 +3,11 @@ import { StyleSheet, Text, View, Dimensions } from 'react-native'
 
 const {width} = Dimensions.get("window");
 
-const RoutineBox = ({ routine }) => {
+const RoutineBox = ({ record }) => {
     
     return (
         <View style = {styles.routine__container}>
-            <Text style = {styles.routine__text}>{routine}</Text>
+            <Text style = {styles.routine__text}>{record.name}</Text>
         </View>
     )
 }
