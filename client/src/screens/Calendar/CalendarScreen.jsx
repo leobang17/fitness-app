@@ -19,49 +19,43 @@ const wait = (timeout) => {
 const CalendarScreen = ({ navigation }) => {
     let today = new Date()
     today = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
-    const [test, setTest] = useState();
-
-    useEffect(() => {
-
-        const response = axios.get(`http://localhost:3000/api/user`)
-        response.then((res) => {
-            console.log(res.data.user[0]);
-            console.log(typeof res.data.user);
-            setFriendsList(res.data.user);
-        }).catch((err) => console.log(err));
-
-
-        // const getFriendLists = async () => {
-        //     try {
-        //         const res = await axios.get(`http://localhost:3000/api/user`)
-        //             // .then((res) => {
-        //                 // console.log
-        //             // })
-        //         console.log(res.data.user);
-        //         console.log(typeof(res.data.user));
-        //         setTest(res.data.user);
-                
-        //     } catch (err) {
-        //         console.log(err);
-        //     }
-        // }
-        // getFriendLists();
-    }, []);
-
-    useEffect(() => {
-        try {
-            console.log(test);
-            console.log(typeof test);
-        } catch {
-            console.log("아직로딩 안됨");
-        }
-    }, [test])
 
     // States
     const [friendsList, setFriendsList] = useState([]);
     const [selectedId, setSelectedId] = useState(0);
     const [selectedDate, setSelectedDate] = useState(today);
     const [refreshing, setRefreshing] = useState(false);
+    const [records, setRecords] = useState([]);
+
+    useEffect(() => {
+        const getFriendLists = async () => {
+            try {
+                const res = await axios.get(`http://localhost:3000/api/user`)
+                setFriendsList(res.data.user);
+            } catch (err) {
+                console.log(err);
+            }
+        }
+        getFriendLists();
+
+    }, []);
+
+    useEffect(() => {
+        const getRecordLists = async () => {
+            try {
+                const uri = `http://localhost:3000/api/record/${selectedId}/${selectedDate}`;
+                const params = {
+                    id : selectedId,
+                    date : selectedDate,
+                }
+                const res = await axios.get(uri, { params });
+                console.log(res.data);
+            } catch (err) {
+                console.log(err);
+            }
+        }
+        getRecordLists();
+    }, [selectedId, selectedDate]);
     
 
     const onRefresh = useCallback(() => {
@@ -79,6 +73,7 @@ const CalendarScreen = ({ navigation }) => {
                 <FriendList friend = {friend} key = {index} selectHandler = {selectHandler} index = {index} selected = {selectedId}/>
             )
         }): null
+
     return (
         <ScrollView 
             style = {styles.container}
