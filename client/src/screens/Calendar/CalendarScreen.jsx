@@ -9,6 +9,7 @@ import { UserDataSet } from '../../DataSet';
 import RoutineBox from '../../components/routineBox/RoutineBox';
 import AddStartBtn from '../../components/addStartBtn/AddStartBtn';
 
+const URI = `http://192.168.0.17:3000/api`;
 
 const {width} = Dimensions.get("window");
 
@@ -30,7 +31,7 @@ const CalendarScreen = ({ navigation }) => {
     useEffect(() => {
         const getFriendLists = async () => {
             try {
-                const res = await axios.get(`http://localhost:3000/api/user`)
+                const res = await axios.get(`${URI}/user`)
                 setFriendsList(res.data.user);
             } catch (err) {
                 console.log(err);
@@ -43,7 +44,7 @@ const CalendarScreen = ({ navigation }) => {
     useEffect(() => {
         const getRecordLists = async () => {
             try {
-                const uri = `http://localhost:3000/api/record/${selectedId}/${selectedDate}`;
+                const uri = `${URI}/record/${selectedId}/${selectedDate}`;
                 const params = {
                     id : selectedId,
                     date : selectedDate,
