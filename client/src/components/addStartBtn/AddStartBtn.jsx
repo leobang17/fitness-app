@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#87C5D6"
     },
     text: {
-        paddingHorizontal: 10,
+        paddingHorizontal: 15,
     },
     text__mainBottom: {
         color: 'gray' 

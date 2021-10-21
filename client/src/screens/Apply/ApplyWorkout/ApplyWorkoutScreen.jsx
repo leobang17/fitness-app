@@ -1,9 +1,11 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { View, Text, Button, StyleSheet, TextInput, ScrollView } from 'react-native'
+import { View, Text, Button, StyleSheet, TextInput, ScrollView, Dimensions } from 'react-native'
 
 import { URI } from '../..';
 import { AddStartBtn, CategoryBox, SearchBar } from '../../../components';
+
+const { width } = Dimensions.get("window")
 
 const ApplyWorkoutScreen = ({ navigation }) => {
     // States
@@ -82,17 +84,20 @@ const ApplyWorkoutScreen = ({ navigation }) => {
                     
                 </ScrollView>
             </View>
-
             <View>
+                {/* 직접 추가 버튼 */}
+            </View>
+
+            <View style = {styles.btn__area}>
                 <AddStartBtn
                     params = {{innerText: "추가", type: "apply"}}
+                    onPress = {() => navigation.navigate("ApplyWorkoutAdd")}
                 />
                 <AddStartBtn
                     params = {{innerText: "취소", type: "apply"}}
+                    onPress = {() => navigation.navigate("Calendar")}
                 />
             </View>
-
-            <Button title = "go to add workout" onPress = {() => navigation.navigate("ApplyWorkoutAdd")} />
         </View>
         
     )
@@ -110,6 +115,12 @@ const styles = StyleSheet.create({
         paddingBottom: 10,
     },
     category__scroll: {
+    },
+    btn__area: {
+        width: width * 0.6,
+        alignSelf: "center",
+        flexDirection: 'row',
+        justifyContent: 'space-evenly'
     }
 })
 

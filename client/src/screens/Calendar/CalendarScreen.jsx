@@ -133,7 +133,7 @@ const CalendarScreen = ({ navigation }) => {
                     }
                 </ScrollView>
             </View>
-            <View style = {{flex: 1, flexDirection: 'row', width: width * 0.5, alignSelf: 'center', justifyContent: 'space-around'}}>
+            <View style = {{flex: 1, flexDirection: 'row', width: width * 0.7, alignSelf: 'center', justifyContent: 'space-around'}}>
                 <AddStartBtn 
                     params = {{innerText: "운동 추가", type: "mainAdd"}}
                     onPress = {() => navigation.navigate("ApplyStack")} 
