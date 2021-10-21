@@ -81,7 +81,7 @@ const _ApplyStack = () => {
 
 const _ApplyTopTab = () => {
     return (
-        <ApplyTopTab.Navigator>
+        <ApplyTopTab.Navigator screenOptions = {{swipeEnabled : false}}>
             <ApplyTopTab.Screen name = "ApplyRoutineStack" component = {ApplyRoutineScreen} />
             <ApplyTopTab.Screen name = "ApplyWorkoutStack" component = {ApplyWorkoutScreen} />
         </ApplyTopTab.Navigator>

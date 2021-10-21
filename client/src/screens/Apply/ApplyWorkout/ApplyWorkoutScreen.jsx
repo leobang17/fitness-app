@@ -42,9 +42,12 @@ const ApplyWorkoutScreen = ({ navigation }) => {
     
     return (
         <View style = {styles.container}>
+            {/* search bar */}
             <View style = {styles.searchBar}>
-                <SearchBar params = {"찾으려는 운동을 검색해보세요."} keywodHandler = {keywordHandler} />
+                <SearchBar params = {"찾으려는 운동을 검색해보세요."} keywordHandler = {keywordHandler} />
             </View>
+
+            {/* category scrollview */}
             <View style = {styles.category__area}>
                 <ScrollView 
                     horizontal 
@@ -72,7 +75,13 @@ const ApplyWorkoutScreen = ({ navigation }) => {
                     }
                 </ScrollView>
             </View>
-            <Text>{keyword}</Text>
+
+            {/* workout list scrollview */}
+            <View>
+                <ScrollView>
+                    
+                </ScrollView>
+            </View>
 
             <Button title = "go to add workout" onPress = {() => navigation.navigate("ApplyWorkoutAdd")} />
         </View>
@@ -94,7 +103,6 @@ const styles = StyleSheet.create({
     category__scroll: {
     }
 })
-
 
 
 export default ApplyWorkoutScreen
