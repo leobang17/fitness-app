@@ -55,5 +55,4 @@ const styles = StyleSheet.create({
       borderColor: '#DDDDDD',
       color: 'white'
     }
-    
 })

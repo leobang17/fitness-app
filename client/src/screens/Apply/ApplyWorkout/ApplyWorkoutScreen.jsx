@@ -24,6 +24,7 @@ const ApplyWorkoutScreen = ({ navigation }) => {
         getCategoryList();
     }, [])
 
+    // Event Handlers
     const keywordHandler = (value) => {
         setKeyword(value);
     }
@@ -38,10 +39,7 @@ const ApplyWorkoutScreen = ({ navigation }) => {
         }
     }
 
-    useEffect(() => {
-        console.log(selectedCategorys);
-    }, [selectedCategorys])
-
+    
     return (
         <View style = {styles.container}>
             <View style = {styles.searchBar}>
@@ -95,8 +93,6 @@ const styles = StyleSheet.create({
     },
     category__scroll: {
     }
-
-
 })
 
 
