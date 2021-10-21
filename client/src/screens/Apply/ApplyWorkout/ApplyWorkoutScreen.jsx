@@ -28,7 +28,7 @@ const ApplyWorkoutScreen = ({ navigation }) => {
         setKeyword(value);
     }
 
-    const onPress = (key) => {
+    const categoryToggle = (key) => {
         if (selectedCategorys.includes(key)) {
             setSelectedCategorys((prev) => {
                 return prev.filter(keys => keys !== key).sort();
@@ -55,8 +55,20 @@ const ApplyWorkoutScreen = ({ navigation }) => {
                 >
                     {
                         category.map((category, index) => {
+                            let isSelected;
+                            if (selectedCategorys.includes(index)) {
+                                isSelected = true;
+                            } else {
+                                isSelected = false
+                            }
                             return (
-                                <CategoryBox key = {index} index = {index} params = {category.name} onPress = {onPress}/>
+                                <CategoryBox 
+                                    key = {index} 
+                                    index = {index} 
+                                    params = {category.name} 
+                                    categoryToggle = {categoryToggle} 
+                                    isSelected = {isSelected}
+                                />
                             )
                         })
                     }

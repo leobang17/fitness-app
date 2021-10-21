@@ -1,17 +1,34 @@
 import React, {useState} from 'react'
 import { StyleSheet, Switch, Text, TouchableOpacity, View } from 'react-native'
+import { AntDesign } from '@expo/vector-icons'; 
 
 
-const CategoryBox = ({ params, onPress, index }) => {
-    const [isEnabled, setIsEnabled] = useState(false);
-    const toggleSwitch = () => {
-        console.log(isEnabled);
-        setIsEnabled((prev) => !prev);
-    }
-
+const CategoryBox = ({ params, categoryToggle, index, isSelected }) => {
     return (
-        <TouchableOpacity style = {styles.category__box} onPress = {() => onPress(index)} value = {isEnabled}>
-            <Text style = {styles.category__text}>{params}</Text>
+        <TouchableOpacity style = {[styles.category__box, (isSelected) ? styles.selected__category__box : null]} onPress = {() => categoryToggle(index)}>
+            {
+                // render favorite (index = 0)
+                (index == 0)? (
+                    (isSelected) ? (
+                        <AntDesign 
+                            name="star" 
+                            size={20} 
+                            color="white" 
+                            style = {styles.category__text} 
+                        />
+                    ): (
+                        <AntDesign 
+                            name="star" 
+                            size={20} 
+                            color="#87C5D6" 
+                            style = {styles.category__text} 
+                        />    
+                    )
+                ): (
+                    // render other categories (index != 0)
+                    <Text style = {styles.category__text}>{params}</Text>
+                )
+            }
         </TouchableOpacity>
     )
 }
@@ -26,12 +43,17 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         marginHorizontal: 5,
         borderColor: "gray",
-        borderWidth: 1
+        borderWidth: 1.5
     },
     category__text: {
         flex: 1,
         paddingHorizontal: 15,
         lineHeight: HEIGHT
+    },
+    selected__category__box: {
+      backgroundColor: '#87C5D6',
+      borderColor: '#DDDDDD',
+      color: 'white'
     }
     
 })
