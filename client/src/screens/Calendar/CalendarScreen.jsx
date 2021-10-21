@@ -17,6 +17,7 @@ const wait = (timeout) => {
   }
 
 const CalendarScreen = ({ navigation }) => {
+    // Value
     let today = new Date()
     today = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
 
@@ -27,6 +28,7 @@ const CalendarScreen = ({ navigation }) => {
     const [refreshing, setRefreshing] = useState(false);
     const [records, setRecords] = useState([]);
 
+    // Hooks
     useEffect(() => {
         const getFriendLists = async () => {
             try {
@@ -59,6 +61,7 @@ const CalendarScreen = ({ navigation }) => {
     }, [selectedId, selectedDate]);
     
 
+    // Event Handlers
     const onRefresh = useCallback(() => {
         setRefreshing(true);
         wait(500).then(() => setRefreshing(false));
@@ -69,6 +72,7 @@ const CalendarScreen = ({ navigation }) => {
         setSelectedId(key)
     }
 
+    // map component
     const friend_components = (friendsList)? friendsList.map((friend, index) => {
         return (
                 <FriendList friend = {friend} key = {index} selectHandler = {selectHandler} index = {index} selected = {selectedId}/>
@@ -130,8 +134,14 @@ const CalendarScreen = ({ navigation }) => {
                 </ScrollView>
             </View>
             <View style = {{flex: 1, flexDirection: 'row', width: width * 0.5, alignSelf: 'center', justifyContent: 'space-around'}}>
-                <AddStartBtn params = {"운동 추가"} onPress = {() => navigation.navigate("ApplyStack")} />
-                <AddStartBtn params = {"운동 시작"} onPress = {() => navigation.navigate("StartWorkout")} />
+                <AddStartBtn 
+                    params = {{innerText: "운동 추가", type: "mainAdd"}}
+                    onPress = {() => navigation.navigate("ApplyStack")} 
+                />
+                <AddStartBtn 
+                    params = {{innerText: "운동 시작", type: "mainStart"}} 
+                    onPress = {() => navigation.navigate("StartWorkout")} 
+                />
             </View>
         </ScrollView>
     )

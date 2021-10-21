@@ -3,8 +3,18 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
 const AddStartBtn = ( { params, onPress } ) => {
     return (
-        <TouchableOpacity style = {styles.container} onPress = {() => onPress()}>
-            <Text style = {styles.text}>{params}</Text>
+        <TouchableOpacity 
+            style = {[
+                styles.container, 
+                (params.type === "mainAdd" || params.type === "mainStart")
+                ? styles.container__mainBottom
+                : 
+                (params.type === "apply")
+                ? styles.container__apply
+                : null
+            ]} 
+            onPress = {() => onPress()}>
+            <Text style = {styles.text}>{params.innerText}</Text>
         </TouchableOpacity>
     )
 }
@@ -13,16 +23,21 @@ export default AddStartBtn
 
 const styles = StyleSheet.create({
     container: {
-        width: 70,
         height: 40,
         borderWidth: 2,
         borderRadius: 20,
-        borderColor: "#87C5D6",
-        backgroundColor: "white",
         alignItems: 'center',
         justifyContent: 'center',
     },
+    container__mainBottom: {
+        borderColor: "#87C5D6",
+        backgroundColor: "white",
+    },
+    container__apply: {
+        backgroundColor: "#87C5D6"
+    },
     text: {
+        paddingHorizontal: 10,
         color: 'gray'
     }
 })

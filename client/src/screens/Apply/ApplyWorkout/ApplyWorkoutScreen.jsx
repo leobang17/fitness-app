@@ -83,6 +83,10 @@ const ApplyWorkoutScreen = ({ navigation }) => {
                 </ScrollView>
             </View>
 
+            <View>
+                
+            </View>
+
             <Button title = "go to add workout" onPress = {() => navigation.navigate("ApplyWorkoutAdd")} />
         </View>
         
