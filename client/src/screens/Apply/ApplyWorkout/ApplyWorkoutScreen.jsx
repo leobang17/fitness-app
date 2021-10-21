@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { View, Text, Button, StyleSheet, TextInput, ScrollView } from 'react-native'
 
 import { URI } from '../..';
-import { CategoryBox, SearchBar } from '../../../components';
+import { AddStartBtn, CategoryBox, SearchBar } from '../../../components';
 
 const ApplyWorkoutScreen = ({ navigation }) => {
     // States
@@ -84,7 +84,12 @@ const ApplyWorkoutScreen = ({ navigation }) => {
             </View>
 
             <View>
-                
+                <AddStartBtn
+                    params = {{innerText: "추가", type: "apply"}}
+                />
+                <AddStartBtn
+                    params = {{innerText: "취소", type: "apply"}}
+                />
             </View>
 
             <Button title = "go to add workout" onPress = {() => navigation.navigate("ApplyWorkoutAdd")} />

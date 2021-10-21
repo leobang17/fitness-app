@@ -14,7 +14,19 @@ const AddStartBtn = ( { params, onPress } ) => {
                 : null
             ]} 
             onPress = {() => onPress()}>
-            <Text style = {styles.text}>{params.innerText}</Text>
+            <Text 
+                style = {[
+                    styles.text,
+                    (params.type === "mainAdd" || params.type === "mainStart")
+                    ? styles.text__mainBottom
+                    :
+                    (params.type === "apply")
+                    ? styles.text__apply
+                    : null
+                ]}
+            >
+                {params.innerText}
+            </Text>
         </TouchableOpacity>
     )
 }
@@ -34,10 +46,16 @@ const styles = StyleSheet.create({
         backgroundColor: "white",
     },
     container__apply: {
+        borderColor: "#87C5D6",
         backgroundColor: "#87C5D6"
     },
     text: {
         paddingHorizontal: 10,
-        color: 'gray'
+    },
+    text__mainBottom: {
+        color: 'gray' 
+    },
+    text__apply: {
+        color: "white"
     }
 })
