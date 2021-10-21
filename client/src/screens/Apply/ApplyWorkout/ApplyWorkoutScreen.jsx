@@ -8,17 +8,20 @@ import { SearchBar } from '../../../components';
 const ApplyWorkoutScreen = ({ navigation }) => {
     // States
     const [keyword, setKeyword] = useState("");
-    const [category, setCategory] = useState(["marked",])
+    const [category, setCategory] = useState([{"name": "marked"}])
     
     // Hooks
     useEffect(() => {
         const getCategoryList = async () => {
-            const res = await axios.get(`${URI}/category`);
-            setCategory(res.data);
+            try {
+                const res = await axios.get(`${URI}/category`);
+                setCategory((prev) => [...prev, ...res.data]);
+            } catch (err) {
+                console.log(err);
+            }
         }
         getCategoryList();
-        
-    })
+    }, [])
 
     const keywordHandler = (value) => {
         setKeyword(value);
@@ -30,11 +33,17 @@ const ApplyWorkoutScreen = ({ navigation }) => {
                 <SearchBar params = {"찾으려는 운동을 검색해보세요."} keywordHandler = {keywordHandler} />
             </View>
             <View>
-
+                {
+                    category.map((category) => {
+                        return (
+                            <Text>
+                                {category.name}
+                            </Text>
+                        )
+                    })
+                }
             </View>
             <Text>{keyword}</Text>
-
-
 
             <Button title = "go to add workout" onPress = {() => navigation.navigate("ApplyWorkoutAdd")} />
         </View>

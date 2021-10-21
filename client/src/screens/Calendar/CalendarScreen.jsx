@@ -8,8 +8,7 @@ import FriendList from '../../components/friendList/FriendList';
 import { UserDataSet } from '../../DataSet';
 import RoutineBox from '../../components/routineBox/RoutineBox';
 import AddStartBtn from '../../components/addStartBtn/AddStartBtn';
-
-const URI = `http://192.168.0.17:3000/api`;
+import { URI } from '..';
 
 const {width} = Dimensions.get("window");
 
