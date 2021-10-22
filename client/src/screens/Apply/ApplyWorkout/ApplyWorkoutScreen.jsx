@@ -10,8 +10,8 @@ const { width } = Dimensions.get("window")
 const ApplyWorkoutScreen = ({ navigation }) => {
     // States
     const [keyword, setKeyword] = useState("");
-    const [category, setCategory] = useState([{"name": "marked"}])
-    const [selectedCategorys, setSelectedCategorys] = useState([])
+    const [category, setCategory] = useState([{"name": "marked"}]);
+    const [selectedCategorys, setSelectedCategorys] = useState([]);
     const [workouts, setWorkouts] = useState([]);
     const [selectedWorkouts, setSelectedWorkouts] = useState([]);
     const [markedWorkouts, setMarkedWorkouts] = useState([]);

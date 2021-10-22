@@ -2,24 +2,35 @@ import axios from 'axios';
 import React, { useState, useEffect} from 'react'
 import { View, Text, TextInput, StyleSheet, Dimensions } from 'react-native'
 import { URI } from '../..';
-import { LongBtn } from '../../../components';
+import { CategoryBox, LongBtn } from '../../../components';
 
 const { width } = Dimensions.get("window");
 
 const ApplyWorkoutAddScreen = ({ navigation }) => {
     // State
-    const [categories, setCategories] = useState([]);
+    const [categories, setCategories] = useState([{"name": "marked"}]);
     const [workoutName, setWorkoutName] = useState("");
+    const [selectedCategorys, setSelectedCategorys] = useState([]);
     
     // Hook
     useEffect(() => {
         const getCategoryList = async () => {
             const res = await axios.get(`${URI}/category`)
-            setCategories(res.data);
+            setCategories(prev => [...prev, ...res.data]);
         }
         getCategoryList();
-    })
+    }, [])
 
+    // Event Handler
+    const categoryToggle = (key) => {
+        if (selectedCategorys.includes(key)) {
+            setSelectedCategorys((prev) => {
+                return prev.filter(keys => keys !== key).sort();
+            })
+        } else {
+            setSelectedCategorys((prev) => [...prev, key].sort())
+        }
+    }
 
     return (
         <View style = {styles.container}>
@@ -37,10 +48,22 @@ const ApplyWorkoutAddScreen = ({ navigation }) => {
                 <View style = {styles.category__boxs__area}>
                     {
                         categories.map((category, index) => {
+                            let isSelected;
+                            if (selectedCategorys.includes(index)) {
+                                isSelected = true;
+                            } else {
+                                isSelected = false;
+                            }
                             return (
-                                <Text key = {index}>
-                                    {category.name}
-                                </Text>
+                                <CategoryBox 
+                                    key = {index}
+                                    index = {index}
+                                    params = {category.name}  
+                                    categoryToggle = {categoryToggle}
+                                    isSelected = {isSelected}
+
+
+                                />
                             )
                         })
                     }
