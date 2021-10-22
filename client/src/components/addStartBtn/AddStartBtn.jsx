@@ -35,7 +35,7 @@ export default AddStartBtn
 
 const styles = StyleSheet.create({
     container: {
-        height: 40,
+        height: 35,
         borderWidth: 2,
         borderRadius: 20,
         alignItems: 'center',

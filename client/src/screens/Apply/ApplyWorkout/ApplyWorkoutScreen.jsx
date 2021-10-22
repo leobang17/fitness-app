@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { View, Text, Button, StyleSheet, TextInput, ScrollView, Dimensions } from 'react-native'
 
 import { URI } from '../..';
-import { AddStartBtn, CategoryBox, SearchBar } from '../../../components';
+import { AddStartBtn, CategoryBox, LongBtn, SearchBar } from '../../../components';
 
 const { width } = Dimensions.get("window")
 
@@ -84,8 +84,12 @@ const ApplyWorkoutScreen = ({ navigation }) => {
                     
                 </ScrollView>
             </View>
-            <View>
-                {/* 직접 추가 버튼 */}
+            <View style = {styles.gotoAdd__area}>
+                <LongBtn
+                    style = {styles.goToAdd}
+                    params = {{innerText: "직접 추가하기", type : "goToAdd"}}
+                    onPress = {() => navigation.navigate("ApplyWorkoutAdd")} 
+                />
             </View>
 
             <View style = {styles.btn__area}>
@@ -116,11 +120,16 @@ const styles = StyleSheet.create({
     },
     category__scroll: {
     },
+    gotoAdd__area : {
+        flexDirection: 'row',
+        justifyContent: 'center'
+    },
     btn__area: {
         width: width * 0.6,
         alignSelf: "center",
         flexDirection: 'row',
-        justifyContent: 'space-evenly'
+        justifyContent: 'space-evenly',
+        marginVertical: 20
     }
 })
 

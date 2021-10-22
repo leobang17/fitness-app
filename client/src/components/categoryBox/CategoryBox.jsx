@@ -26,7 +26,16 @@ const CategoryBox = ({ params, categoryToggle, index, isSelected }) => {
                     )
                 ): (
                     // render other categories (index != 0)
-                    <Text style = {styles.category__text}>{params}</Text>
+                    <Text 
+                        style = {[
+                            styles.category__text,
+                            (isSelected)
+                            ? styles.selected__category__text
+                            : null
+                        ]}
+                    >
+                        {params}
+                    </Text>
                 )
             }
         </TouchableOpacity>
@@ -53,6 +62,8 @@ const styles = StyleSheet.create({
     selected__category__box: {
       backgroundColor: '#87C5D6',
       borderColor: '#DDDDDD',
-      color: 'white'
+    },
+    selected__category__text: {
+        color: 'white'
     }
 })
