@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { View, Text, Button, StyleSheet, TextInput, ScrollView, Dimensions } from 'react-native'
 
 import { URI } from '../..';
-import { AddStartBtn, CategoryBox, LongBtn, SearchBar } from '../../../components';
+import { AddStartBtn, CategoryBox, LongBtn, SearchBar, WorkoutBox } from '../../../components';
 
 const { width } = Dimensions.get("window")
 
@@ -12,18 +12,34 @@ const ApplyWorkoutScreen = ({ navigation }) => {
     const [keyword, setKeyword] = useState("");
     const [category, setCategory] = useState([{"name": "marked"}])
     const [selectedCategorys, setSelectedCategorys] = useState([])
-    
+    const [workouts, setWorkouts] = useState([]);
+    const [selectedWorkouts, setSelectedWorkouts] = useState([]);
+    const [markedWorkouts, setMarkedWorkouts] = useState([]);
+
     // Hooks
     useEffect(() => {
         const getCategoryList = async () => {
             try {
                 const res = await axios.get(`${URI}/category`);
+                console.log(res);
                 setCategory((prev) => [...prev, ...res.data]);
             } catch (err) {
                 console.log(err);
             }
         }
         getCategoryList();
+    }, [])
+
+    useEffect(() => {
+        const getWorkoutList = async () => {
+            try {
+                const res = await axios.get(`${URI}/workout`);
+                setWorkouts(() => res.data)
+            } catch (err) {
+                console.log(err);
+            }
+        }
+        getWorkoutList();
     }, [])
 
     // Event Handlers
@@ -38,6 +54,26 @@ const ApplyWorkoutScreen = ({ navigation }) => {
             })
         } else {
             setSelectedCategorys((prev) => [...prev, key].sort())
+        }
+    }
+
+    const workoutToggle = (key) => {
+        if (selectedWorkouts.includes(key)) {
+            setSelectedWorkouts((prev) => {
+                return prev.filter(keys => keys !== key).sort();
+            })
+        } else {
+            setSelectedWorkouts((prev) => [...prev, key].sort());
+        }
+    }
+
+    const workoutMarkToggle = (key) => {
+        if (markedWorkouts.includes(key)) {
+            setMarkedWorkouts((prev) => {
+                return prev.filter(keys => keys !== key).sort();
+            })
+        } else {
+            setMarkedWorkouts((prev) => [...prev, key].sort());
         }
     }
 
@@ -62,7 +98,7 @@ const ApplyWorkoutScreen = ({ navigation }) => {
                             if (selectedCategorys.includes(index)) {
                                 isSelected = true;
                             } else {
-                                isSelected = false
+                                isSelected = false;
                             }
                             return (
                                 <CategoryBox 
@@ -79,11 +115,39 @@ const ApplyWorkoutScreen = ({ navigation }) => {
             </View>
 
             {/* workout list scrollview */}
-            <View>
+            <View style = {styles.workout__area}>
                 <ScrollView>
+                    {
+                        workouts.map((workout, index) => {
+                            let isSelected;
+                            let isMarked;
+                            if (selectedWorkouts.includes(index)){
+                                isSelected = true;
+                            } else{
+                                isSelected = false;
+                            }
+                            if (markedWorkouts.includes(index)) {
+                                isMarked = true;
+                            } else {
+                                isMarked = false;
+                            }
+                            return (
+                                <WorkoutBox 
+                                    params = {{innerText: workout.name, index: index}}
+                                    isSelected = {isSelected} 
+                                    isMarked = {isMarked}
+                                    key = {index} 
+                                    workoutToggle = {workoutToggle}
+                                    workoutMarkToggle = {workoutMarkToggle}
+                                />
+                            )
+                        })
+                    }
+
                     
                 </ScrollView>
             </View>
+
             <View style = {styles.gotoAdd__area}>
                 <LongBtn
                     style = {styles.goToAdd}
@@ -130,6 +194,10 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-evenly',
         marginVertical: 20
+    },
+    workout__area: {
+        width: width * 0.9,
+        alignSelf: 'center'
     }
 })
 
