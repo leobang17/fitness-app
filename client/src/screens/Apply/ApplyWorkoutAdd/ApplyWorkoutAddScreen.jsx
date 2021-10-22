@@ -61,8 +61,6 @@ const ApplyWorkoutAddScreen = ({ navigation }) => {
                                     params = {category.name}  
                                     categoryToggle = {categoryToggle}
                                     isSelected = {isSelected}
-
-
                                 />
                             )
                         })
@@ -90,8 +88,8 @@ export default ApplyWorkoutAddScreen
 const styles = StyleSheet.create({
     container: {
       flexDirection: "column",
-      width: width * 0.85,
-      alignSelf: 'center',
+      width: width,
+      alignItems: 'center'
     },
     inputTextBox__area: {
         marginVertical: 10,
@@ -101,12 +99,15 @@ const styles = StyleSheet.create({
         borderBottomColor: "#D5D5D5",
         // borderBottomStartRadius: 10,
         // borderBottomEndRadius: 10,
+        width: width * 0.85,
         flexGrow: 1,
     },
     inputTextBox: {
         marginLeft: 5
     },
     title__text: {
+        width: width * 0.85,
+        alignSelf: 'center',
         fontSize: 20,
         fontWeight: 'bold'
     },
@@ -115,6 +116,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column'
     },
     category__boxs__area: {
+        width: width * 0.9,
         marginVertical: 10,
         flexDirection: 'row',
         flexWrap: "wrap"    
