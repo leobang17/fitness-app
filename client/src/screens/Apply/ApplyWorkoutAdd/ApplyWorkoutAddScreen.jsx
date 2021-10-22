@@ -30,14 +30,25 @@ const ApplyWorkoutAddScreen = ({ navigation }) => {
                     onChangeText = {(value) => setWorkoutName(value)}
                 />
             </View>
-            <View>
-                <Text>
+            <View style = {styles.category__area}>
+                <Text style = {styles.title__text}>
                     카테고리
                 </Text>
+                <View style = {styles.category__boxs__area}>
+                    {
+                        categories.map((category, index) => {
+                            return (
+                                <Text key = {index}>
+                                    {category.name}
+                                </Text>
+                            )
+                        })
+                    }
+                </View>
             </View>
-            <View>
+            <View style = {styles.type__area}>
                 <View>
-                    <Text>
+                    <Text style = {styles.title__text}>
                         타입
                     </Text>
                 </View>
@@ -71,6 +82,22 @@ const styles = StyleSheet.create({
     },
     inputTextBox: {
         marginLeft: 5
+    },
+    title__text: {
+        fontSize: 20,
+        fontWeight: 'bold'
+    },
+    category__area: {
+        marginVertical: 10,
+        flexDirection: 'column'
+    },
+    category__boxs__area: {
+        marginVertical: 10,
+        flexDirection: 'row',
+        flexWrap: "wrap"    
+    },
+    type__area: {
+        marginVertical: 10
     }
     
 })
