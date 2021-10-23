@@ -21,6 +21,10 @@ app.get("/api/record/:id/:date", (req, res) => {
     
 })
 
+app.get("/api/routine", (req, res) => {
+    res.send(record.routine);
+})
+
 app.get('/api/category', (req, res) => {
     res.send(category.category);
 })

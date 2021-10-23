@@ -21,7 +21,6 @@ const ApplyWorkoutScreen = ({ navigation }) => {
         const getCategoryList = async () => {
             try {
                 const res = await axios.get(`${URI}/category`);
-                console.log(res);
                 setCategory((prev) => [...prev, ...res.data]);
             } catch (err) {
                 console.log(err);
