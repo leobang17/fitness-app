@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     },
     selected__category__box: {
       backgroundColor: '#87C5D6',
-      borderColor: '#DDDDDD',
+      borderColor: '#87C5D6',
     },
     selected__category__text: {
         color: 'white'

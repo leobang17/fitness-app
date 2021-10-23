@@ -5,3 +5,4 @@ export { default as SearchBar } from "./searchBar/SearchBar";
 export { default as CategoryBox } from "./categoryBox/CategoryBox";
 export { default as LongBtn } from "./longBtn/LongBtn";
 export { default as WorkoutBox } from "./workoutBox/WorkoutBox";
+export { default as TypeBox } from "./typeBox/TypeBox";

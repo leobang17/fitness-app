@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useState, useEffect} from 'react'
 import { View, Text, TextInput, StyleSheet, Dimensions } from 'react-native'
 import { URI } from '../..';
-import { CategoryBox, LongBtn } from '../../../components';
+import { CategoryBox, LongBtn, TypeBox } from '../../../components';
 
 const { width } = Dimensions.get("window");
 
@@ -11,12 +11,16 @@ const ApplyWorkoutAddScreen = ({ navigation }) => {
     const [categories, setCategories] = useState([{"name": "marked"}]);
     const [workoutName, setWorkoutName] = useState("");
     const [selectedCategorys, setSelectedCategorys] = useState([]);
+    const [types, setTypes] = useState([]);
+    const [selectedTypes, setSelectedTypes] = useState([]);
     
     // Hook
     useEffect(() => {
         const getCategoryList = async () => {
-            const res = await axios.get(`${URI}/category`)
-            setCategories(prev => [...prev, ...res.data]);
+            const resCategory = await axios.get(`${URI}/category`);
+            const resType = await axios.get(`${URI}/type`);
+            setCategories(prev => [...prev, ...resCategory.data]);
+            setTypes(resType.data);
         }
         getCategoryList();
     }, [])
@@ -32,6 +36,20 @@ const ApplyWorkoutAddScreen = ({ navigation }) => {
         }
     }
 
+    const typeToggle = (key) => {
+        if (selectedTypes.includes(key)) {
+            setSelectedTypes((prev) => {
+                return prev.filter(keys => keys !== key).sort();
+            })
+        } else {
+            setSelectedTypes((prev) => [...prev, key].sort())
+        }
+    }
+
+    useEffect(() => {
+        console.log(selectedTypes);
+    }, [selectedTypes])
+
     return (
         <View style = {styles.container}>
             <View style = {styles.inputTextBox__area}>
@@ -45,7 +63,7 @@ const ApplyWorkoutAddScreen = ({ navigation }) => {
                 <Text style = {styles.title__text}>
                     카테고리
                 </Text>
-                <View style = {styles.category__boxs__area}>
+                <View style = {styles.boxs__area}>
                     {
                         categories.map((category, index) => {
                             let isSelected;
@@ -68,10 +86,31 @@ const ApplyWorkoutAddScreen = ({ navigation }) => {
                 </View>
             </View>
             <View style = {styles.type__area}>
-                <View>
-                    <Text style = {styles.title__text}>
-                        타입
-                    </Text>
+                <Text style = {styles.title__text}>
+                    타입
+                </Text>
+                <View style = {styles.boxs__area}>
+                    {
+                        types.map((type, index) => {
+                            let isSelected;
+                            if (selectedTypes.includes(index)) {
+                                isSelected = true;
+                            } else {
+                                isSelected = false;
+                            }
+                            return (
+                                <TypeBox 
+                                    key = {index}
+                                    index = {index}
+                                    params = {type.name}
+                                    btnToggle = {typeToggle}
+                                    isSelected = {isSelected}
+                                />
+
+                            )
+                        })
+                    }
+                    
                 </View>
             </View>
             
@@ -113,16 +152,18 @@ const styles = StyleSheet.create({
     },
     category__area: {
         marginVertical: 10,
-        flexDirection: 'column'
+        flexDirection: 'column',
+        marginBottom: 30
     },
-    category__boxs__area: {
+    boxs__area: {
         width: width * 0.9,
         marginVertical: 10,
         flexDirection: 'row',
         flexWrap: "wrap"    
     },
     type__area: {
-        marginVertical: 10
+        marginVertical: 10,
+        marginBottom: 50
     }
     
 })

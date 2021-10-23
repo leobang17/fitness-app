@@ -2,6 +2,7 @@ const user = require("./dummy/user.json");
 const record = require("./dummy/routine.json");
 const category = require("./dummy/category.json");
 const workout = require("./dummy/workout.json");
+const type = require("./dummy/type.json");
 
 const express = require("express");
 const cors = require("cors");
@@ -26,6 +27,10 @@ app.get('/api/category', (req, res) => {
 
 app.get('/api/workout', (req, res) => {
     res.send(workout.workout);
+})
+
+app.get("/api/type", (req, res) => {
+    res.send(type.type);
 })
 
 app.listen(port, () => {
