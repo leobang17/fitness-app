@@ -26,8 +26,12 @@ const ApplyRoutineScreen = ({ navigation }) => {
     }
 
     const addRoutineBtn = () => {
-        const routineLen = routines.length();
-        console.log(routineLen)
+        const routineLen = routines.length;
+        const newRoutine = {
+            id: routineLen + 1,
+            name: `루틴 ${routineLen + 1}`
+        }
+        setRoutines((prev) => [...prev, newRoutine]);
     }
     
     return (
