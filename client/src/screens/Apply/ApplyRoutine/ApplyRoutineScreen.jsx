@@ -31,13 +31,16 @@ const ApplyRoutineScreen = ({ navigation }) => {
             id: routineLen + 1,
             name: `루틴 ${routineLen + 1}`
         }
-        setRoutines((prev) => [...prev, newRoutine]);
+        setRoutines((prev) => [newRoutine, ...prev]);
     }
     
     return (
         <View style = {styles.container}>
             <View style = {styles.routine__area}>
-                <ScrollView style = {styles.routine__scroll}>
+                <ScrollView 
+                    // contentContainerStyle = {{flex: 1}}
+                    style = {styles.routine__scroll}
+                >
                     {
                         routines.map((routine, index) => {
                             return (
@@ -52,7 +55,7 @@ const ApplyRoutineScreen = ({ navigation }) => {
                 </ScrollView>
             </View>
 
-            <View>
+            <View style = {styles.addBtn__area}>
                 {/* 루틴 추가 버튼 */}
                 <AddStartBtn 
                     params = {{innerText: "추가", type: "apply"}}
@@ -67,12 +70,20 @@ export default ApplyRoutineScreen
 
 const styles = StyleSheet.create({
     container: {
-        width: "100%"
+        width: "100%",
+        flex: 1,
     },
     routine__area: {
         width: "100%",
-        flexDirection: 'column',
+        flex: 1,
         alignItems: 'center',
     },
-    
+    routine__scroll: {
+    },
+    addBtn__area: {
+        position: 'absolute',
+        flexDirection: 'row',
+        alignSelf: 'center',
+        bottom: "8%"
+    }
 })
