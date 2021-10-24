@@ -46,10 +46,6 @@ const ApplyWorkoutAddScreen = ({ navigation }) => {
         }
     }
 
-    useEffect(() => {
-        console.log(selectedTypes);
-    }, [selectedTypes])
-
     return (
         <View style = {styles.container}>
             <View style = {styles.inputTextBox__area}>

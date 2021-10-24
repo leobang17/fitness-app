@@ -24,6 +24,11 @@ const ApplyRoutineScreen = ({ navigation }) => {
             routineName: routineName
         })
     }
+
+    const addRoutineBtn = () => {
+        const routineLen = routines.length();
+        console.log(routineLen)
+    }
     
     return (
         <View style = {styles.container}>
@@ -47,7 +52,7 @@ const ApplyRoutineScreen = ({ navigation }) => {
                 {/* 루틴 추가 버튼 */}
                 <AddStartBtn 
                     params = {{innerText: "추가", type: "apply"}}
-                    onPress = {() => console.log("아")}
+                    onPress = {addRoutineBtn}
                 />
             </View>
         </View>
