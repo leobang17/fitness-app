@@ -53,6 +53,9 @@ const ApplyWorkoutAddScreen = ({ navigation }) => {
     return (
         <View style = {styles.container}>
             <View style = {styles.inputTextBox__area}>
+                <Text style = {styles.title__text}>
+                    종목 이름
+                </Text>
                 <TextInput 
                     style = {styles.inputTextBox}
                     placeholder = "추가할 운동의 이름을 입력하세요."
@@ -131,7 +134,7 @@ const styles = StyleSheet.create({
       alignItems: 'center'
     },
     inputTextBox__area: {
-        marginVertical: 10,
+        marginVertical: 15,
         paddingTop: 10,
         paddingBottom: 2,
         borderBottomWidth: 2,
@@ -142,6 +145,7 @@ const styles = StyleSheet.create({
         flexGrow: 1,
     },
     inputTextBox: {
+        paddingTop: 20,
         marginLeft: 5
     },
     title__text: {

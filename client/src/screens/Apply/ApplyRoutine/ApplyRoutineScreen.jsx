@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { View, Text, Button, ScrollView, StyleSheet } from 'react-native'
 import { URI } from '../..';
-import { RoutineBox, RoutineBox2 } from '../../../components';
+import { AddStartBtn, RoutineBox, RoutineBox2 } from '../../../components';
 
 const ApplyRoutineScreen = ({ navigation }) => {
     // States
@@ -25,7 +25,6 @@ const ApplyRoutineScreen = ({ navigation }) => {
         })
     }
     
-
     return (
         <View style = {styles.container}>
             <View style = {styles.routine__area}>
@@ -45,10 +44,12 @@ const ApplyRoutineScreen = ({ navigation }) => {
             </View>
 
             <View>
-                {/* 추가 제거 버튼 */}
+                {/* 루틴 추가 버튼 */}
+                <AddStartBtn 
+                    params = {{innerText: "추가", type: "apply"}}
+                    onPress = {() => console.log("아")}
+                />
             </View>
-
-            <Button title = "to routine detail" onPress = {() => navigation.navigate("ApplyRoutineDetail")} />
         </View>
     )
 }
