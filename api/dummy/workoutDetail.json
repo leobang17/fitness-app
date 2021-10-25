@@ -1,0 +1,110 @@
+{
+    "workoutDetail": [
+        {
+            "id": 0,
+            "workout_id": 0,
+            "set": 1,
+            "reps": 10,
+            "weight": 20
+        },
+        {
+            "id": 1,
+            "workout_id": 0,
+            "set": 2,
+            "reps": 10,
+            "weight": 20
+        },
+        {
+            "id": 2,
+            "workout_id": 0,
+            "set": 3,
+            "reps": 10,
+            "weight": 20
+        },
+        {
+            "id": 3,
+            "workout_id": 0,
+            "set": 4,
+            "reps": 10,
+            "weight": 20
+        },
+        {
+            "id": 4,
+            "workout_id": 0,
+            "set": 5,
+            "reps": 10,
+            "weight": 20
+        },
+        {
+            "id": 5,
+            "workout_id": 1,
+            "set": 1,
+            "reps": 10,
+            "weight": 20
+        },
+        {
+            "id": 6,
+            "workout_id": 1,
+            "set": 2,
+            "reps": 10,
+            "weight": 20
+        },
+        {
+            "id": 7,
+            "workout_id": 1,
+            "set": 3,
+            "reps": 10,
+            "weight": 20
+        },
+        {
+            "id": 8,
+            "workout_id": 1,
+            "set": 4,
+            "reps": 10,
+            "weight": 20
+        },
+        {
+            "id": 9,
+            "workout_id": 1,
+            "set": 5,
+            "reps": 10,
+            "weight": 20
+        },
+        {
+            "id": 10,
+            "workout_id": 2,
+            "set": 1,
+            "reps": 10,
+            "weight": 20
+        },
+        {
+            "id": 11,
+            "workout_id": 2,
+            "set": 2,
+            "reps": 10,
+            "weight": 20
+        },
+        {
+            "id": 12,
+            "workout_id": 2,
+            "set": 3,
+            "reps": 10,
+            "weight": 20
+        },
+        {
+            "id": 13,
+            "workout_id": 2,
+            "set": 4,
+            "reps": 10,
+            "weight": 20
+        },
+        {
+            "id": 14,
+            "workout_id": 2,
+            "set": 5,
+            "reps": 10,
+            "weight": 20
+        }
+
+    ]
+}
