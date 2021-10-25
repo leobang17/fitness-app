@@ -45,7 +45,7 @@ const CalendarScreen = ({ navigation }) => {
     useEffect(() => {
         const getRecordLists = async () => {
             try {
-                const uri = `${URI}/record/${selectedId}/${selectedDate}`;
+                const uri = `${URI}/workout`;
                 const params = {
                     id : selectedId,
                     date : selectedDate,
@@ -80,60 +80,61 @@ const CalendarScreen = ({ navigation }) => {
         }): null
 
     return (
-        <ScrollView 
-            style = {styles.container}
-            contentContainerStyle={styles.scrollView}
-            refreshControl={
-                <RefreshControl
-                    refreshing={refreshing}
-                    onRefresh={onRefresh}
-                />
-            }
-            showsVerticalScrollIndicator = {false}
-        >
-
-            <View style = {styles.calender__header} />
-            <View style = {styles.friends__container}>
-                {friend_components}
-                <TouchableOpacity>
-                    <AntDesign name="pluscircle" size={25} color="black" style = {{marginLeft: 5}} />
-                </TouchableOpacity>
-            </View>
-            <View style = {styles.selected__user}>
-                { 
-                    friendsList[selectedId] ? (
-                        <Text style = {styles.selected__user__text}>{friendsList[selectedId].username}</Text>
-                    ) : null
+        <View style = {styles.container}>
+            <ScrollView 
+                contentContainerStyle={styles.scrollView}
+                refreshControl={
+                    <RefreshControl
+                        refreshing={refreshing}
+                        onRefresh={onRefresh}
+                    />
                 }
-            </View>
-            <Calendar
-                onDayPress={(day) => {setSelectedDate(day.dateString)}}
-                markedDates={{
-                    [selectedDate] : {selected: true, selectedColor: '#87C5D6'},
-                }}
-                style = {{borderRadius: 10}}
-            />
-            {/* <Agenda 
-                onDayPress={(day) => {setSelectedDate(day.dateString)}}
-                markedDates = {{
-                    [selectedDate] : {selected: true, selectedColor: '#87C5D6'}
-                }}
-                // hideKnob={true}
-                // renderItem={(item, firstItemInDay) => {return (<View />);}}
+                showsVerticalScrollIndicator = {false}
+            >
 
-                style = {{borderRadius: 10, borderBottomRightRadius: 10}}
-
-            /> */}
-            <View style = {{marginTop: 10}}>
-                <ScrollView showsVerticalScrollIndicator = {false}>
-                    {
-                        records.map((record, index) => {
-                            return <RoutineBox key = {index} record = {record} />
-                        })
+                <View style = {styles.calender__header} />
+                <View style = {styles.friends__container}>
+                    {friend_components}
+                    <TouchableOpacity>
+                        <AntDesign name="pluscircle" size={25} color="black" style = {{marginLeft: 5}} />
+                    </TouchableOpacity>
+                </View>
+                <View style = {styles.selected__user}>
+                    { 
+                        friendsList[selectedId] ? (
+                            <Text style = {styles.selected__user__text}>{friendsList[selectedId].username}</Text>
+                        ) : null
                     }
-                </ScrollView>
-            </View>
-            <View style = {{flex: 1, flexDirection: 'row', width: width * 0.7, alignSelf: 'center', justifyContent: 'space-around'}}>
+                </View>
+                <Calendar
+                    onDayPress={(day) => {setSelectedDate(day.dateString)}}
+                    markedDates={{
+                        [selectedDate] : {selected: true, selectedColor: '#87C5D6'},
+                    }}
+                    style = {{borderRadius: 10}}
+                />
+                {/* <Agenda 
+                    onDayPress={(day) => {setSelectedDate(day.dateString)}}
+                    markedDates = {{
+                        [selectedDate] : {selected: true, selectedColor: '#87C5D6'}
+                    }}
+                    // hideKnob={true}
+                    // renderItem={(item, firstItemInDay) => {return (<View />);}}
+
+                    style = {{borderRadius: 10, borderBottomRightRadius: 10}}
+
+                /> */}
+                <View style = {{marginTop: 10}}>
+                    <ScrollView showsVerticalScrollIndicator = {false}>
+                        {
+                            records.map((record, index) => {
+                                return <RoutineBox key = {index} record = {record} />
+                            })
+                        }
+                    </ScrollView>
+                </View>
+            </ScrollView>
+            <View style = {styles.btn__area}>
                 <AddStartBtn 
                     params = {{innerText: "운동 추가", type: "mainAdd"}}
                     onPress = {() => navigation.navigate("ApplyStack")} 
@@ -143,7 +144,7 @@ const CalendarScreen = ({ navigation }) => {
                     onPress = {() => navigation.navigate("StartWorkout")} 
                 />
             </View>
-        </ScrollView>
+        </View>
     )
 }
 
@@ -167,5 +168,15 @@ const styles = StyleSheet.create({
     },
     selected__user__text: {
         fontSize: 18
+    },
+    btn__area: {
+        position: 'absolute',
+        alignSelf: 'center',
+        bottom: "1%",
+        flex: 1, 
+        flexDirection: 'row', 
+        width: width * 0.7, 
+        alignSelf: 'center', 
+        justifyContent: 'space-around'
     }
 })

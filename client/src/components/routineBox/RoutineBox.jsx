@@ -1,14 +1,14 @@
 import React from 'react'
-import { StyleSheet, Text, View, Dimensions } from 'react-native'
+import { StyleSheet, Text, View, Dimensions, TouchableOpacity } from 'react-native'
 
 const {width} = Dimensions.get("window");
 
 const RoutineBox = ({ record }) => {
     
     return (
-        <View style = {styles.routine__container}>
+        <TouchableOpacity style = {styles.routine__container}>
             <Text style = {styles.routine__text}>{record.name}</Text>
-        </View>
+        </TouchableOpacity>
     )
 }
 
@@ -16,7 +16,7 @@ export default RoutineBox
 
 const styles = StyleSheet.create({
     routine__container: {
-        width: width * 0.7,
+        width: width * 0.8,
         alignSelf: 'center',
         height: 45,
         backgroundColor: "#87C5D6",
