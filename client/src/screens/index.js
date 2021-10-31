@@ -19,6 +19,8 @@ export {default as ManageWorkoutAddScreen} from "./Manage/ManageWorkoutAdd/Manag
 // 에이바우트 2 5G
 // export const URI = "http://172.30.1.22:3000/api";
 // 강남 엔젤리너스 
-export const URI = "http://172.30.1.2:3000/api";
+// export const URI = "http://172.30.1.2:3000/api";
 // 서울시청역 
 // export const URI = "http://192.168.0.29:3000/api";
+// 아이폰 
+export const URI = "http://172.20.10.10:3000/api";

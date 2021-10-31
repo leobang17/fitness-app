@@ -3,10 +3,18 @@ import { StyleSheet, Text, View, Dimensions, TouchableOpacity } from 'react-nati
 
 const {width} = Dimensions.get("window");
 
-const RoutineBox = ({ record }) => {
+const RoutineBox = ({ record, params ,onPress }) => {
+    console.log(params.type);
     
     return (
-        <TouchableOpacity style = {styles.routine__container}>
+        <TouchableOpacity 
+            style = {styles.routine__container}
+            onPress = {
+                (params.type === "fromApplyStackDetail")
+                ? (() => onPress(params.index))
+                : null
+            }
+        >
             <Text style = {styles.routine__text}>{record.name}</Text>
         </TouchableOpacity>
     )

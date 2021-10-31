@@ -128,7 +128,7 @@ const CalendarScreen = ({ navigation }) => {
                     <ScrollView showsVerticalScrollIndicator = {false}>
                         {
                             records.map((record, index) => {
-                                return <RoutineBox key = {index} record = {record} />
+                                return <RoutineBox key = {index} record = {record} params = {{type: "fromCalendar"}} />
                             })
                         }
                     </ScrollView>

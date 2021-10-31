@@ -10,19 +10,34 @@ const ApplyRoutineDetailScreen = ({navigation, route }) => {
     
     // States
     const [workouts, setWorkouts] = useState([]);
+    const [showSetDetails, setShowSetDetails] = useState([]);
 
     // Hooks
     useEffect(() => {
         const getWorkoutList = async () => {
             const res = await axios.get(`${URI}/workout`)
             setWorkouts(res.data);
+            setShowSetDetails(() => Array(res.data.length).fill(false));
         }
         getWorkoutList();
     }, [])
 
+    useEffect(() => {  
+        console.log(showSetDetails);
+    }, [showSetDetails])
 
     // Event Handlers 
-
+    const toggleSetDetails = (index) => {
+        setShowSetDetails((prev) => {
+            prev = [...prev];
+            if (prev[index] === true) {
+                prev[index] = false;
+            } else {
+                prev[index] = true;
+            }
+            return prev
+        })
+    }
 
     return (
         <View style = {styles.container}>
@@ -33,7 +48,9 @@ const ApplyRoutineDetailScreen = ({navigation, route }) => {
                         return (
                             <RoutineBox
                                 key = {index}
+                                params = {{index: index, type : "fromApplyStackDetail"}}
                                 record = {workout}
+                                onPress = {toggleSetDetails}
                             />
                         )
                     })
