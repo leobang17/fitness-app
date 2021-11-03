@@ -1,13 +1,13 @@
 import React from 'react'
-import { Dimensions, StyleSheet, Text, View } from 'react-native'
+import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
 const { width } = Dimensions.get('window');
 
-const SetBox = ( params, index) => {
+const SetBox = ( params, index, onPress ) => {
     const {set, weight, reps} = {...params};
     // params -> { reps, weight, set }
     return (
-        <View style = {styles.container}>
+        <TouchableOpacity style = {styles.container}>
             <Text>
                 set {set}
             </Text>
@@ -17,7 +17,7 @@ const SetBox = ( params, index) => {
             <Text>
                 {reps} reps
             </Text>
-        </View>
+        </TouchableOpacity>
     )
 }
 
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: width * 0.7,
         height: 35,
-        borderRadius: 20,
+        borderRadius: 10,
         borderColor: "black",
         backgroundColor: "#FFFFFF",
         marginVertical: 5,

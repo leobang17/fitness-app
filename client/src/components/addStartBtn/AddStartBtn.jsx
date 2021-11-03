@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
-const AddStartBtn = ( { params, onPress } ) => {
+const AddStartBtn = ( { params, onPress, index } ) => {
     return (
         <TouchableOpacity 
             style = {[
