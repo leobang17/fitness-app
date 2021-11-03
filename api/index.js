@@ -3,6 +3,7 @@ const record = require("./dummy/routine.json");
 const category = require("./dummy/category.json");
 const workout = require("./dummy/workout.json");
 const type = require("./dummy/type.json");
+const setDetail = require("./dummy/setDetail.json");
 
 const express = require("express");
 const cors = require("cors");
@@ -35,6 +36,10 @@ app.get('/api/workout', (req, res) => {
 
 app.get("/api/type", (req, res) => {
     res.send(type.type);
+})
+
+app.get("/api/setDetail", (req, res) => {
+    res.send(setDetail.setDetail);
 })
 
 app.listen(port, () => {
