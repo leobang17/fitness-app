@@ -12,7 +12,6 @@ export default function App() {
   
   const pressHandler = () => {
     setIsSignedIn(true);
-
   }
 
   return (
@@ -31,7 +30,6 @@ export default function App() {
           )
         }
       </Stack.Navigator>
-
     </NavigationContainer>
   );
 }
