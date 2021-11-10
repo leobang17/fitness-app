@@ -23,6 +23,7 @@ export {default as ManageWorkoutAddScreen} from "./Manage/ManageWorkoutAdd/Manag
 // 서울시청역 
 // export const URI = "http://192.168.0.29:3000/api";
 // 아이폰 
-export const URI = "http://172.20.10.10:3000/api";
+// export const URI = "http://172.20.10.10:3000/api";
 // 책소 
 // export const URI = "http://192.168.0.42:3000/api";
+export const URI = "http://192.168.1.30:3000/api";
