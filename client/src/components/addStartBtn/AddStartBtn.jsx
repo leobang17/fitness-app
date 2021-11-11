@@ -11,9 +11,12 @@ const AddStartBtn = ( { params, onPress, index } ) => {
                 : 
                 (params.type === "apply")
                 ? styles.container__apply
+                : 
+                (params.type === "startWorkout")
+                ? styles.container__startWorkout
                 : null
             ]} 
-            onPress = {() => onPress()}>
+            onPress = {() => onPress(params.onPressParams || null)}>
             <Text 
                 style = {[
                     styles.text,
@@ -22,6 +25,9 @@ const AddStartBtn = ( { params, onPress, index } ) => {
                     :
                     (params.type === "apply")
                     ? styles.text__apply
+                    : 
+                    (params.type === "startWorkout")
+                    ? styles.text__startWorktout
                     : null
                 ]}
             >
@@ -49,6 +55,12 @@ const styles = StyleSheet.create({
         borderColor: "#87C5D6",
         backgroundColor: "#87C5D6"
     },
+    container__startWorkout: {
+        borderColor: "#87C5D6",
+        backgroundColor: "#87C5D6",
+        borderRadius: 10,
+        
+    },  
     text: {
         paddingHorizontal: 15,
     },
@@ -57,5 +69,8 @@ const styles = StyleSheet.create({
     },
     text__apply: {
         color: "white"
+    },
+    text__startWorktout: {
+        color: '#FFFFFF'
     }
 })
