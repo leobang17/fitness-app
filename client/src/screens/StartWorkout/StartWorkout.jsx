@@ -8,13 +8,17 @@ const StartWorkout = () => {
     const [minute, setMinute] = useState("");
     const [second, setSecond] = useState("");
     const [toggleTimer, setToggleTimer] = useState(false);
+    const [toggleBtnName, setToggleBtnName] = useState("시작");
+    const [isTimerRunning, setIsTimerRunning] = useState(false);
     const [intervalId, setIntervalId] = useState(0)
+
 
     // Hooks
     useEffect(() => {        
         minuteCalculator();   
         if (timer <= 0) {
             setToggleTimer(false);
+            setIsTimerRunning(false);
         }
     }, [timer])
 
@@ -22,11 +26,22 @@ const StartWorkout = () => {
         if (toggleTimer) {
             const timerInterval = setInterval(timeDecrement, 1000);
             setIntervalId(timerInterval);
-        }
-        if (!toggleTimer || timer < 0) {
+            setIsTimerRunning(true);
+        } else if (!toggleTimer || timer < 0) {
             clearInterval(intervalId);
-        }
+        } 
     }, [toggleTimer])
+
+    useEffect(() => {
+        if (!isTimerRunning) {
+            setToggleBtnName('시작');
+        } else if (isTimerRunning && !toggleTimer) {
+            setToggleBtnName('다시시작');
+        } else if (isTimerRunning && toggleTimer) {
+            setToggleBtnName('일시정지');
+        }
+    }, [isTimerRunning, toggleTimer])
+
 
     // Event Handlers
     const addTime = (time) => {
@@ -38,6 +53,14 @@ const StartWorkout = () => {
         let second = (timer % 60).toString();
         setMinute(minute);
         setSecond(second);
+    }
+
+    const toggleTimerFunc = () => {
+        if (toggleTimer) {
+            setToggleTimer(false)
+        } else if (!toggleTimer && timer > 0){
+            setToggleTimer(true)
+        }
     }
 
     const toggleStartFunc = () => {
@@ -52,6 +75,10 @@ const StartWorkout = () => {
         setTimer((prev) => prev - 1);
     }
 
+    const clearTime = () => {
+        setTimer(0);
+    }
+
     return (
         <SafeAreaView>
                 
@@ -62,8 +89,8 @@ const StartWorkout = () => {
             <Text>운동 시작 screen</Text>
             <Button title ={"+ 30 sec"} onPress = {() => addTime(30)} />
             <Button title ={"+ 10 sec"} onPress = {() => addTime(10)} />
-            <Button title = {"start"} onPress = {() => toggleStartFunc()} />
-            <Button title = {"end"} onPress = {() => toggleEndFunc()} />
+            <Button title = {toggleBtnName} onPress = {() => toggleTimerFunc()} />
+            <Button title = {"초기화"} onPress = {() => clearTime()} />
         </SafeAreaView>
         
     )
