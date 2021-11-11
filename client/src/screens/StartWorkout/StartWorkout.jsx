@@ -4,41 +4,27 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 
 const StartWorkout = () => {
     // States
-    const [timer, setTimer] = useState(20);
+    const [timer, setTimer] = useState(0);
     const [minute, setMinute] = useState("");
     const [second, setSecond] = useState("");
     const [toggleTimer, setToggleTimer] = useState(false);
-    let timerInterval;
-    const a = [1, 2, 3, 4];
-    // console.log("default", timerInterval);
-    // timerInterval = setInterval(timeDecrement, 1000);
-    // console.log("after declaration", timerInterval);
-    // setTimeout(() => clearInterval(timerInterval) , 2000);
-    // console.log("after clear", timerInterval);
-
+    const [intervalId, setIntervalId] = useState(0)
 
     // Hooks
     useEffect(() => {        
-        minuteCalculator();        
+        minuteCalculator();   
+        if (timer <= 0) {
+            setToggleTimer(false);
+        }
     }, [timer])
 
     useEffect(() => {
-        let timerInterval;
-        try {
-            a = [1 ,2, 3, 4,5];
-        } catch(err) {
-            console.log(err);
-        }
-
         if (toggleTimer) {
-            timerInterval = setInterval(timeDecrement, 1000);
-            // console.log("토글 타이머는 참트루 ");
-            console.log("toggle on", timerInterval);
+            const timerInterval = setInterval(timeDecrement, 1000);
+            setIntervalId(timerInterval);
         }
-        if (!toggleTimer) {
-            clearInterval(timerInterval);
-            // console.log("토글 타이머는 뽈스 ");
-            console.log("toggle off", timerInterval);
+        if (!toggleTimer || timer < 0) {
+            clearInterval(intervalId);
         }
     }, [toggleTimer])
 
