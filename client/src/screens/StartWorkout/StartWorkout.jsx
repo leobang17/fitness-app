@@ -13,25 +13,25 @@ const StartWorkout = () => {
     const [toggleBtnName, setToggleBtnName] = useState("시작");
     const [isTimerRunning, setIsTimerRunning] = useState(false);
     const [intervalId, setIntervalId] = useState(0)
+    let startTime = 0;
 
-    var startTime, interval;
+    // var startTime, interval;
 
-    function start(){
-        startTime = Date.now();
-        interval = setInterval(function(){
-            updateDisplay(Date.now() - startTime);
-        }, 1000);
-    }
+    // function start(){
+    //     startTime = Date.now();
+    //     interval = setInterval(function(){
+    //         updateDisplay(Date.now() - startTime);
+    //     }, 1000);
+    // }
 
-    function stop(){
-        clearInterval(interval);
-    }
+    // function stop(){
+    //     clearInterval(interval);
+    // }
 
-    function updateDisplay(currentTime){
-        // do your stuff
-        console.log(currentTime);
-    }
-
+    // function updateDisplay(currentTime){
+    //     // do your stuff
+    //     console.log(currentTime);
+    // }
 
     // Hooks
     useEffect(() => {        
@@ -44,6 +44,7 @@ const StartWorkout = () => {
 
     useEffect(() => {
         if (toggleTimer) {
+            startTime = Date.now();
             const timerInterval = setInterval(timeDecrement, 10);
             setIntervalId(timerInterval);
             setIsTimerRunning(true);
@@ -51,6 +52,9 @@ const StartWorkout = () => {
             clearInterval(intervalId);
         } 
     }, [toggleTimer])
+    
+    useEffect(() => {
+    }, [startTime])
 
     useEffect(() => {
         if (!isTimerRunning) {
@@ -64,8 +68,8 @@ const StartWorkout = () => {
 
 
     // Event Handlers
-    const addTime = (time) => {
-        setTimer((prev) => prev + time)
+    const addTime = async (time) => {
+        await setTimer((prev) => prev + time)
     }
 
     const minuteCalculator = () => {
@@ -73,7 +77,7 @@ const StartWorkout = () => {
         let tempMinute = parseInt(toSecond / 60).toString();
         let tempSecond = parseInt(toSecond % 60).toString();
         let tempMilliSecond = parseInt((timer % 1000) / 10).toString();
-        
+
         setMinute(tempMinute);
         setSecond(tempSecond);
         setMilliSecond(tempMilliSecond);
@@ -88,7 +92,8 @@ const StartWorkout = () => {
     }
 
     const timeDecrement = () => {
-        setTimer((prev) => prev - 10);
+        const timePassed = Date.now() - startTime;
+        setTimer(timer - timePassed);
     }
 
     const clearTime = () => {
@@ -97,8 +102,6 @@ const StartWorkout = () => {
 
     return (
         <SafeAreaView>
-            <Button onPress = {() => stop()} title = {"스탑"} />
-            <Button onPress = {() => start()} title = {"스타트"} /> 
             <View style = {styles.timer__area}>
                 <View style = {styles.timer__time__area}>
                     <View style = {styles.timer__time}>

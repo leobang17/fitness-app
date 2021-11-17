@@ -3,8 +3,7 @@ import { StyleSheet, Text, View, Dimensions, TouchableOpacity } from 'react-nati
 
 const {width} = Dimensions.get("window");
 
-const RoutineBox = ({ record, params ,onPress }) => {
-    console.log(params.type);
+const RoutineBox = ({ record, params ,onPress }) => {    
     
     return (
         <TouchableOpacity 
