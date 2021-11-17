@@ -7,3 +7,4 @@ export { default as LongBtn } from "./longBtn/LongBtn";
 export { default as WorkoutBox } from "./workoutBox/WorkoutBox";
 export { default as TypeBox } from "./typeBox/TypeBox";
 export { default as RoutineBox2 } from "./routineBox2/RoutineBox2";
+export { default as WorkoutStartBox } from "./workoutStartBox/WorkoutStartBox";
