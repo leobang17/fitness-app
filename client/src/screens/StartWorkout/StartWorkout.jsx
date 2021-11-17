@@ -14,6 +14,24 @@ const StartWorkout = () => {
     const [isTimerRunning, setIsTimerRunning] = useState(false);
     const [intervalId, setIntervalId] = useState(0)
 
+    var startTime, interval;
+
+    function start(){
+        startTime = Date.now();
+        interval = setInterval(function(){
+            updateDisplay(Date.now() - startTime);
+        }, 1000);
+    }
+
+    function stop(){
+        clearInterval(interval);
+    }
+
+    function updateDisplay(currentTime){
+        // do your stuff
+        console.log(currentTime);
+    }
+
 
     // Hooks
     useEffect(() => {        
@@ -51,13 +69,13 @@ const StartWorkout = () => {
     }
 
     const minuteCalculator = () => {
-        let tempMinute = parseInt(timer / 60).toString();
-        let tempSecond = timer % 60
-        let tempSecondre = Math.round((tempSecond / 1)).toString();
-        let tempMilliSecond = Math.round(((tempSecond % 1) * 100)).toString()
-
+        let toSecond = parseInt(timer / 1000);
+        let tempMinute = parseInt(toSecond / 60).toString();
+        let tempSecond = parseInt(toSecond % 60).toString();
+        let tempMilliSecond = parseInt((timer % 1000) / 10).toString();
+        
         setMinute(tempMinute);
-        setSecond(tempSecondre);
+        setSecond(tempSecond);
         setMilliSecond(tempMilliSecond);
     }
 
@@ -70,7 +88,7 @@ const StartWorkout = () => {
     }
 
     const timeDecrement = () => {
-        setTimer((prev) => prev - 0.01);
+        setTimer((prev) => prev - 10);
     }
 
     const clearTime = () => {
@@ -79,6 +97,8 @@ const StartWorkout = () => {
 
     return (
         <SafeAreaView>
+            <Button onPress = {() => stop()} title = {"스탑"} />
+            <Button onPress = {() => start()} title = {"스타트"} /> 
             <View style = {styles.timer__area}>
                 <View style = {styles.timer__time__area}>
                     <View style = {styles.timer__time}>
@@ -99,11 +119,11 @@ const StartWorkout = () => {
                 </View>
                 <View style = {styles.timer__btn__area}>
                     <AddStartBtn
-                        params = {{innerText: "+10sec", type: "startWorkout", onPressParams: 10}}
+                        params = {{innerText: "+10sec", type: "startWorkout", onPressParams: 10 * 1000}}
                         onPress = {addTime}
                     />
                     <AddStartBtn
-                        params = {{innerText: "+30sec", type: "startWorkout", onPressParams: 30}}
+                        params = {{innerText: "+30sec", type: "startWorkout", onPressParams: 30 * 1000}}
                         onPress = {addTime}
                     />
                 </View>
@@ -116,7 +136,7 @@ const StartWorkout = () => {
     )
 }
 
-export default StartWorkout
+export default StartWorkout;
 
 const styles = StyleSheet.create({
     container : {},

@@ -5,7 +5,6 @@ import {Calendar, CalendarList, Agenda, Arrow, WeekCalendar} from 'react-native-
 import axios from "axios";
 
 import FriendList from '../../components/friendList/FriendList';
-import { UserDataSet } from '../../DataSet';
 import RoutineBox from '../../components/routineBox/RoutineBox';
 import AddStartBtn from '../../components/addStartBtn/AddStartBtn';
 import { URI } from '..';

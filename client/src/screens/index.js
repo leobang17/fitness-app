@@ -15,9 +15,9 @@ export {default as ManageWorkoutScreen} from "./Manage/ManageWorkout/ManageWorko
 export {default as ManageWorkoutAddScreen} from "./Manage/ManageWorkoutAdd/ManageWorkoutAddScreen"
 
 // 집
-export const URI = "http://192.168.0.17:3000/api";
+// export const URI = "http://192.168.0.17:3000/api";
 // 에이바우트 2 5G
-// export const URI = "http://172.30.1.10:3000/api";
+// export const URI = "http://172.30.1.36:3000/api";
 // 강남 엔젤리너스 
 // export const URI = "http://172.30.1.2:3000/api";
 // 서울시청역 
@@ -27,3 +27,5 @@ export const URI = "http://192.168.0.17:3000/api";
 // 책소 
 // export const URI = "http://192.168.0.42:3000/api";
 // export const URI = "http://192.168.1.30:3000/api";
+
+export const URI = "http://192.168.0.58:3000/api";
