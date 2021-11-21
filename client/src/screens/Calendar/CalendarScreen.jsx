@@ -49,7 +49,8 @@ const CalendarScreen = ({ navigation }) => {
                     id : selectedId,
                     date : selectedDate,
                 }
-                const res = await axios.get(uri, { params });
+                let res;
+                res = await axios.get(uri, { params });
 
                 setRecords(res.data);
             } catch (err) {

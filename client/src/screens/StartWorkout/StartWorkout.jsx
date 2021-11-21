@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { View, Text, TouchableOpacity, Button, StyleSheet } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { AddStartBtn } from '../../components';
@@ -13,29 +13,54 @@ const StartWorkout = () => {
     const [toggleBtnName, setToggleBtnName] = useState("시작");
     const [isTimerRunning, setIsTimerRunning] = useState(false);
     const [intervalId, setIntervalId] = useState(0)
+    const timerRef = useRef(0);
     let startTime = 0;
 
-    // var startTime, interval;
+    // Custom Hooks
+    const useInterval = (callback, delay) => {
+        const savedCallback = useRef();
 
-    // function start(){
-    //     startTime = Date.now();
-    //     interval = setInterval(function(){
-    //         updateDisplay(Date.now() - startTime);
-    //     }, 1000);
-    // }
+        useEffect(() => {
+            savedCallback.current = callback;
+        }, [callback]);
 
-    // function stop(){
-    //     clearInterval(interval);
-    // }
+        useEffect(() => {
+            const tick = () => {
+                savedCallback.current();
+            }
+            if (delay !== null) {
+                let id = setInterval(tick, delay);
+                return () => clearInterval(id);
+            }
+        })
+    }
 
-    // function updateDisplay(currentTime){
-    //     // do your stuff
-    //     console.log(currentTime);
-    // }
+
+    // function useInterval(callback, delay) {
+    //     const savedCallback = useRef();
+      
+    //     // Remember the latest callback.
+    //     useEffect(() => {
+    //       savedCallback.current = callback;
+    //     }, [callback]);
+      
+    //     // Set up the interval.
+    //     useEffect(() => {
+    //       function tick() {
+    //         savedCallback.current();
+    //       }
+    //       if (delay !== null) {
+    //         let id = setInterval(tick, delay);
+    //         return () => clearInterval(id);
+    //       }
+    //     }, [delay]);
+    //   }
 
     // Hooks
     useEffect(() => {        
         minuteCalculator();   
+        console.log("left time: ", timer);
+        timerRef.current = timer;
         if (timer <= 0) {
             setToggleTimer(false);
             setIsTimerRunning(false);
@@ -45,7 +70,7 @@ const StartWorkout = () => {
     useEffect(() => {
         if (toggleTimer) {
             startTime = Date.now();
-            const timerInterval = setInterval(timeDecrement, 10);
+            const timerInterval = setInterval(timeDecrement, 1000);
             setIntervalId(timerInterval);
             setIsTimerRunning(true);
         } else if (!toggleTimer || timer < 0) {
