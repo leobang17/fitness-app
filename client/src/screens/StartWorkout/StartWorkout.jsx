@@ -13,49 +13,16 @@ const StartWorkout = () => {
     const [toggleBtnName, setToggleBtnName] = useState("시작");
     const [isTimerRunning, setIsTimerRunning] = useState(false);
     const [intervalId, setIntervalId] = useState(0)
+    const [testTime, setTestTime] = useState(0);
+    const [toggleTest, setToggleTest] = useState(false);
+    const [delay, setDelay] = useState(null);
+    // const [leftTime, setLeftTime] = useState(0);
+    const leftTimeRef = useRef(0);
+    const startTime = useRef(0);
+
     const timerRef = useRef(0);
-    let startTime = 0;
-
-    // Custom Hooks
-    const useInterval = (callback, delay) => {
-        const savedCallback = useRef();
-
-        useEffect(() => {
-            savedCallback.current = callback;
-        }, [callback]);
-
-        useEffect(() => {
-            const tick = () => {
-                savedCallback.current();
-            }
-            if (delay !== null) {
-                let id = setInterval(tick, delay);
-                return () => clearInterval(id);
-            }
-        })
-    }
-
-
-    // function useInterval(callback, delay) {
-    //     const savedCallback = useRef();
-      
-    //     // Remember the latest callback.
-    //     useEffect(() => {
-    //       savedCallback.current = callback;
-    //     }, [callback]);
-      
-    //     // Set up the interval.
-    //     useEffect(() => {
-    //       function tick() {
-    //         savedCallback.current();
-    //       }
-    //       if (delay !== null) {
-    //         let id = setInterval(tick, delay);
-    //         return () => clearInterval(id);
-    //       }
-    //     }, [delay]);
-    //   }
-
+    // let startTime = 0;
+    
     // Hooks
     useEffect(() => {        
         minuteCalculator();   
@@ -64,23 +31,42 @@ const StartWorkout = () => {
         if (timer <= 0) {
             setToggleTimer(false);
             setIsTimerRunning(false);
+            return () => setTimer(0);
         }
     }, [timer])
 
+    useInterval(() => {
+        timeDecrement();
+    }, toggleTimer ? 10 : null);
+
+    useEffect(() => {
+        if (toggleTest) {
+            // setTestTime("정지");
+            console.log("정지로 바뀜");
+        } else {
+            // setTestTime("시작");
+            console.log("시작으로 바뀜");
+        }
+        return () => console.log("으악 바뀜");
+    }, [toggleTest]);
+    
     useEffect(() => {
         if (toggleTimer) {
-            startTime = Date.now();
-            const timerInterval = setInterval(timeDecrement, 1000);
-            setIntervalId(timerInterval);
+            startTime.current = Date.now();
+            // const timerInterval = setInterval(timeDecrement, 1000);
+            // setIntervalId(timerInterval);
+            leftTimeRef.current = timer;
+            console.log(leftTimeRef.current, "으악");
             setIsTimerRunning(true);
         } else if (!toggleTimer || timer < 0) {
-            clearInterval(intervalId);
+            // clearInterval(intervalId);
+            
         } 
     }, [toggleTimer])
     
     useEffect(() => {
     }, [startTime])
-
+    
     useEffect(() => {
         if (!isTimerRunning) {
             setToggleBtnName('시작');
@@ -90,24 +76,25 @@ const StartWorkout = () => {
             setToggleBtnName('일시정지');
         }
     }, [isTimerRunning, toggleTimer])
-
-
+    
+    
     // Event Handlers
-    const addTime = async (time) => {
-        await setTimer((prev) => prev + time)
+    const addTime = (time) => {
+        setTimer((prev) => prev + time)
+        leftTimeRef.current += time;
     }
-
+    
     const minuteCalculator = () => {
         let toSecond = parseInt(timer / 1000);
         let tempMinute = parseInt(toSecond / 60).toString();
         let tempSecond = parseInt(toSecond % 60).toString();
         let tempMilliSecond = parseInt((timer % 1000) / 10).toString();
-
+        
         setMinute(tempMinute);
         setSecond(tempSecond);
         setMilliSecond(tempMilliSecond);
     }
-
+    
     const toggleTimerFunc = () => {
         if (toggleTimer) {
             setToggleTimer(false)
@@ -115,18 +102,39 @@ const StartWorkout = () => {
             setToggleTimer(true)
         }
     }
-
+    
     const timeDecrement = () => {
-        const timePassed = Date.now() - startTime;
-        setTimer(timer - timePassed);
+        const timePassed = Date.now() - startTime.current;
+        console.log("start time: ", startTime.current);
+        console.log("time passed: ", timePassed);
+        console.log("timer: ", timer - timePassed);
+        console.log("leftTime", leftTimeRef.current);
+        setTimer(leftTimeRef.current - timePassed);
     }
-
+    
     const clearTime = () => {
         setTimer(0);
     }
-
+    
     return (
         <SafeAreaView>
+            <Text>{testTime}</Text>
+            <Button
+                title = {testTime}
+                onPress = {() => {
+                    if (toggleTest) {
+                        setToggleTest(false);
+                    } else {
+                        setToggleTest(true);
+                    }
+                }}
+                />
+            <Button
+                title = "1000 감소"
+                onPress = {() => {
+                    setTestTime((prev) => prev - 100)
+                }}
+            />
             <View style = {styles.timer__area}>
                 <View style = {styles.timer__time__area}>
                     <View style = {styles.timer__time}>
@@ -149,11 +157,11 @@ const StartWorkout = () => {
                     <AddStartBtn
                         params = {{innerText: "+10sec", type: "startWorkout", onPressParams: 10 * 1000}}
                         onPress = {addTime}
-                    />
+                        />
                     <AddStartBtn
                         params = {{innerText: "+30sec", type: "startWorkout", onPressParams: 30 * 1000}}
                         onPress = {addTime}
-                    />
+                        />
                 </View>
                 <View style = {styles.timer__btn__toggle}>
                     <Button title = {toggleBtnName} onPress = {() => toggleTimerFunc()} />
@@ -163,6 +171,26 @@ const StartWorkout = () => {
         </SafeAreaView>
     )
 }
+
+// Custom Hooks
+function useInterval(callback, delay) {
+    const intervalRef = useRef();
+    const callbackRef = useRef(callback);
+
+    useEffect(() => {
+        callbackRef.current = callback;
+    }, [callback]);
+
+    useEffect(() => {
+        if (typeof delay === "number") {
+            intervalRef.current = setInterval(() => callbackRef.current(), delay);
+        }
+        return () => clearInterval(intervalRef.current);
+    }, [delay]);
+
+    return intervalRef;
+}
+
 
 export default StartWorkout;
 
@@ -184,7 +212,7 @@ const styles = StyleSheet.create({
         fontSize: 30,
         width: 10,
         textAlign: 'center'
-
+        
     },
     timer__btn__area: {
         flexDirection: 'row'
