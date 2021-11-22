@@ -12,60 +12,32 @@ const StartWorkout = () => {
     const [toggleTimer, setToggleTimer] = useState(false);
     const [toggleBtnName, setToggleBtnName] = useState("시작");
     const [isTimerRunning, setIsTimerRunning] = useState(false);
-    const [intervalId, setIntervalId] = useState(0)
-    const [testTime, setTestTime] = useState(0);
-    const [toggleTest, setToggleTest] = useState(false);
-    const [delay, setDelay] = useState(null);
-    // const [leftTime, setLeftTime] = useState(0);
     const leftTimeRef = useRef(0);
-    const startTime = useRef(0);
-
-    const timerRef = useRef(0);
-    // let startTime = 0;
+    const startTimeRef = useRef(0);
     
     // Hooks
     useEffect(() => {        
         minuteCalculator();   
-        console.log("left time: ", timer);
-        timerRef.current = timer;
         if (timer <= 0) {
             setToggleTimer(false);
             setIsTimerRunning(false);
-            return () => setTimer(0);
+            setTimer(0)
         }
     }, [timer])
 
     useInterval(() => {
         timeDecrement();
     }, toggleTimer ? 10 : null);
-
-    useEffect(() => {
-        if (toggleTest) {
-            // setTestTime("정지");
-            console.log("정지로 바뀜");
-        } else {
-            // setTestTime("시작");
-            console.log("시작으로 바뀜");
-        }
-        return () => console.log("으악 바뀜");
-    }, [toggleTest]);
     
     useEffect(() => {
         if (toggleTimer) {
-            startTime.current = Date.now();
-            // const timerInterval = setInterval(timeDecrement, 1000);
-            // setIntervalId(timerInterval);
+            startTimeRef.current = Date.now();
             leftTimeRef.current = timer;
-            console.log(leftTimeRef.current, "으악");
             setIsTimerRunning(true);
         } else if (!toggleTimer || timer < 0) {
-            // clearInterval(intervalId);
-            
+            setIsTimerRunning(false);
         } 
     }, [toggleTimer])
-    
-    useEffect(() => {
-    }, [startTime])
     
     useEffect(() => {
         if (!isTimerRunning) {
@@ -104,11 +76,7 @@ const StartWorkout = () => {
     }
     
     const timeDecrement = () => {
-        const timePassed = Date.now() - startTime.current;
-        console.log("start time: ", startTime.current);
-        console.log("time passed: ", timePassed);
-        console.log("timer: ", timer - timePassed);
-        console.log("leftTime", leftTimeRef.current);
+        const timePassed = Date.now() - startTimeRef.current;
         setTimer(leftTimeRef.current - timePassed);
     }
     
@@ -118,23 +86,6 @@ const StartWorkout = () => {
     
     return (
         <SafeAreaView>
-            <Text>{testTime}</Text>
-            <Button
-                title = {testTime}
-                onPress = {() => {
-                    if (toggleTest) {
-                        setToggleTest(false);
-                    } else {
-                        setToggleTest(true);
-                    }
-                }}
-                />
-            <Button
-                title = "1000 감소"
-                onPress = {() => {
-                    setTestTime((prev) => prev - 100)
-                }}
-            />
             <View style = {styles.timer__area}>
                 <View style = {styles.timer__time__area}>
                     <View style = {styles.timer__time}>
