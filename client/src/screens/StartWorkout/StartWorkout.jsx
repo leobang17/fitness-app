@@ -1,7 +1,10 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { View, Text, TouchableOpacity, Button, StyleSheet } from 'react-native'
+import { View, Text, TouchableOpacity, Button, StyleSheet, Dimensions } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { AddStartBtn } from '../../components';
+
+const { width } = Dimensions.get('window');
+const TIMER_FONTSIZE = 40;
 
 const StartWorkout = () => {
     // States
@@ -12,8 +15,8 @@ const StartWorkout = () => {
     const [toggleTimer, setToggleTimer] = useState(false);
     const [toggleBtnName, setToggleBtnName] = useState("시작");
     const [isTimerRunning, setIsTimerRunning] = useState(false);
-    const leftTimeRef = useRef(0);
     const startTimeRef = useRef(0);
+    const leftTimeRef = useRef(0);
     
     // Hooks
     useEffect(() => {        
@@ -25,9 +28,6 @@ const StartWorkout = () => {
         }
     }, [timer])
 
-    useInterval(() => {
-        timeDecrement();
-    }, toggleTimer ? 10 : null);
     
     useEffect(() => {
         if (toggleTimer) {
@@ -49,7 +49,13 @@ const StartWorkout = () => {
         }
     }, [isTimerRunning, toggleTimer])
     
+
+    // Custon Hooks
+    useInterval(() => {
+        timeDecrement();
+    }, toggleTimer ? 10 : null);
     
+
     // Event Handlers
     const addTime = (time) => {
         setTimer((prev) => prev + time)
@@ -103,16 +109,23 @@ const StartWorkout = () => {
                     <View style = {styles.timer__time}>
                         <Text style = {styles.timer__time__text}>{milliSecond.padStart(2, "0")}</Text>
                     </View>
+                    {/* <View>
+                        <Text style = {styles.timer__time__text}>{minute.padStart(2, "0")} : {second.padStart(2, "0")} . {milliSecond.padStart(2, "0")}</Text>
+                    </View> */}
                 </View>
                 <View style = {styles.timer__btn__area}>
                     <AddStartBtn
                         params = {{innerText: "+10sec", type: "startWorkout", onPressParams: 10 * 1000}}
                         onPress = {addTime}
-                        />
+                    />
                     <AddStartBtn
                         params = {{innerText: "+30sec", type: "startWorkout", onPressParams: 30 * 1000}}
                         onPress = {addTime}
-                        />
+                    />
+                    <AddStartBtn
+                        params = {{innerText: "+60sec", type: "startWorkout", onPressParams: 60 * 1000}}
+                        onPress = {addTime}
+                    />
                 </View>
                 <View style = {styles.timer__btn__toggle}>
                     <Button title = {toggleBtnName} onPress = {() => toggleTimerFunc()} />
@@ -148,24 +161,38 @@ export default StartWorkout;
 const styles = StyleSheet.create({
     container : {},
     timer__area: {
-        alignItems: 'center'
+        alignItems: 'center',
+        alignSelf: 'center',
+        width: width * 0.9,
+        backgroundColor: '#EAEAEA',
+        borderRadius: 15
     },
     timer__time__area: {
         flexDirection: 'row',
         justifyContent: 'flex-start'
     },
     timer__time__text: {
-        fontSize: 30,
-        width: 40,
-        textAlign: 'center'
+        fontSize: TIMER_FONTSIZE,
+        width: 55, 
+        textAlign: 'center',
+        paddingTop: 20
     },
     timer__symbol__text: {
-        fontSize: 30,
+        fontSize: TIMER_FONTSIZE,
         width: 10,
-        textAlign: 'center'
-        
+        textAlign: 'center',
+        paddingTop: 20
     },
     timer__btn__area: {
-        flexDirection: 'row'
+        width: '95%',
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        marginVertical: 10
+    },
+    timer__btn__toggle: {
+        width: '70%',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginBottom: 15
     }
 })
