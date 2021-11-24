@@ -47,8 +47,6 @@ const StartWorkout = () => {
         } else if (isTimerRunning && toggleTimer) {
             setToggleBtnName('일시정지');
         }
-        console.log(`is timer running: ${isTimerRunning} \ntoggle timer: ${toggleTimer}`);
-        // console.log("fe");
     }, [isTimerRunning, toggleTimer])
     
     
