@@ -21,7 +21,7 @@ const StartWorkout = () => {
         if (timer <= 0) {
             setToggleTimer(false);
             setIsTimerRunning(false);
-            setTimer(0)
+            setTimer(0);
         }
     }, [timer])
 
@@ -35,7 +35,7 @@ const StartWorkout = () => {
             leftTimeRef.current = timer;
             setIsTimerRunning(true);
         } else if (!toggleTimer || timer < 0) {
-            setIsTimerRunning(false);
+            // setIsTimerRunning(false);
         } 
     }, [toggleTimer])
     
@@ -47,6 +47,8 @@ const StartWorkout = () => {
         } else if (isTimerRunning && toggleTimer) {
             setToggleBtnName('일시정지');
         }
+        console.log(`is timer running: ${isTimerRunning} \ntoggle timer: ${toggleTimer}`);
+        // console.log("fe");
     }, [isTimerRunning, toggleTimer])
     
     
