@@ -31,10 +31,6 @@ const ApplyRoutineDetailScreen = ({navigation, route }) => {
         getSetDetails();
     }, [])
 
-    useEffect(() => {  
-        console.log(setDetails);
-    }, [showSetDetails, setDetails])
-
     // Event Handlers 
     const toggleSetDetails = (index) => {
         setShowSetDetails((prev) => {

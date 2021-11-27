@@ -1,10 +1,11 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
-const WorkoutStartBox = () => {
+const WorkoutStartBox = ( params ) => {
+    const { innerText } = params
     return (
         <View>
-            <Text></Text>
+            <Text>{innerText}</Text>
         </View>
     )
 }

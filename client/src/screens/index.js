@@ -25,7 +25,5 @@ export {default as ManageWorkoutAddScreen} from "./Manage/ManageWorkoutAdd/Manag
 // 아이폰 
 // export const URI = "http://172.20.10.10:3000/api";
 // 책소 
-// export const URI = "http://192.168.0.42:3000/api";
-// export const URI = "http://192.168.1.30:3000/api";
-// export const URI = "http://172.16.101.216:3000/api";
-export const URI = "http://192.168.0.21:3000/api";
+// export const URI = "http://192.168.1.45:3000/api";
+export const URI = "http://192.168.0.20:3000/api";

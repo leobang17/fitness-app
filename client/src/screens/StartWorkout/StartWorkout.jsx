@@ -1,7 +1,9 @@
+import axios from 'axios';
 import React, { useEffect, useState, useRef } from 'react'
 import { View, Text, TouchableOpacity, Button, StyleSheet, Dimensions } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { AddStartBtn } from '../../components';
+import { URI } from '..';
+import { AddStartBtn, WorkoutStartBox } from '../../components';
 
 const { width } = Dimensions.get('window');
 const TIMER_FONTSIZE = 40;
@@ -15,10 +17,41 @@ const StartWorkout = () => {
     const [toggleTimer, setToggleTimer] = useState(false);
     const [toggleBtnName, setToggleBtnName] = useState("시작");
     const [isTimerRunning, setIsTimerRunning] = useState(false);
+    const [workoutList, setWorkoutList] = useState([]);
+    const [repsDone, setRepsDone] = useState([]);
     const startTimeRef = useRef(0);
     const leftTimeRef = useRef(0);
-    
+
     // Hooks
+    useEffect(() => {
+        const getWorkoutList = async () => {
+            const workoutRes = await axios.get(`${URI}/workout`);
+            workoutRes.data.map(async (workout) => {
+                const repsRes = await axios.get(`${URI}/setDetail`);
+                const tempArr = [];
+                workout.reps = repsRes.data;
+                workout.repsAvg = 0;
+                repsRes.data.map((repsResIter) => {
+                    workout.repsAvg += parseInt(repsResIter.weight / repsRes.data.length);
+                })
+                // 해당 루틴 몇번 실행했는지.
+                tempArr.length = repsRes.data.length;
+                tempArr.fill(false);
+                setRepsDone((prev) => [...prev, tempArr]);
+            })
+            setWorkoutList((prev) => [...prev, ...workoutRes.data]);
+        }
+        getWorkoutList();
+    }, [])
+
+    useEffect(() => {
+        console.log(workoutList);
+    }, [workoutList]);
+
+    // useEffect(() => {
+    //     console.log(repsDone);
+    // }, [repsDone]);
+
     useEffect(() => {        
         minuteCalculator();   
         if (timer <= 0) {
@@ -27,7 +60,6 @@ const StartWorkout = () => {
             setTimer(0);
         }
     }, [timer])
-
     
     useEffect(() => {
         if (toggleTimer) {
@@ -109,9 +141,6 @@ const StartWorkout = () => {
                     <View style = {styles.timer__time}>
                         <Text style = {styles.timer__time__text}>{milliSecond.padStart(2, "0")}</Text>
                     </View>
-                    {/* <View>
-                        <Text style = {styles.timer__time__text}>{minute.padStart(2, "0")} : {second.padStart(2, "0")} . {milliSecond.padStart(2, "0")}</Text>
-                    </View> */}
                 </View>
                 <View style = {styles.timer__btn__area}>
                     <AddStartBtn
@@ -131,6 +160,40 @@ const StartWorkout = () => {
                     <Button title = {toggleBtnName} onPress = {() => toggleTimerFunc()} />
                     <Button title = {"초기화"} onPress = {() => clearTime()} />
                 </View>
+            </View>
+            <View style = {styles.workout__area}>
+                {
+                    workoutList.map((workout, index) => {
+                        return (
+                            <View key = {index}>
+                                <WorkoutStartBox 
+                                    index = {index}
+                                    innerText = {workout.name}
+                                />
+                                {
+                                    (workout.reps)
+                                    ?
+                                    workout.reps.map((set, index) => {
+                                        return (
+                                            <View key = {index}>
+                                                <Text>
+                                                    {set.reps} reps
+                                                    {set.weight} kgs
+                                                </Text>
+                                            </View>
+                                        )
+                                    })
+                                    : null
+                                } 
+                                <Text>
+                                    ----------------------------------
+                                </Text>
+                            </View>
+                            
+                        )
+                        
+                    })
+                }
             </View>
         </SafeAreaView>
     )
