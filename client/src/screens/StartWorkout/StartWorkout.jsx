@@ -18,6 +18,7 @@ const StartWorkout = () => {
     const [toggleBtnName, setToggleBtnName] = useState("시작");
     const [isTimerRunning, setIsTimerRunning] = useState(false);
     const [workoutList, setWorkoutList] = useState([]);
+    const [showSetDetails, setShowSetDetails] = useState([]);
     const [repsDone, setRepsDone] = useState([]);
     const startTimeRef = useRef(0);
     const leftTimeRef = useRef(0);
@@ -41,13 +42,14 @@ const StartWorkout = () => {
             }
             setWorkoutList(workoutRes.data);
             setRepsDone(setArr);
+            setShowSetDetails(new Array(workoutRes.data.length).fill(false));
         }
         getWorkoutList();
     }, [])
 
     useEffect(() => {
-        console.log(workoutList);
-    }, [workoutList]);
+        console.log(showSetDetails);
+    }, [showSetDetails]);
 
     useEffect(() => {        
         minuteCalculator();   
@@ -118,6 +120,20 @@ const StartWorkout = () => {
     const clearTime = () => {
         setTimer(0);
     }
+
+    const toggleSetDetails = (index) => {
+        console.log("터치됨", index);
+        // console.log(showSetDetails);
+        setShowSetDetails((prev) => {
+            prev = [...prev];
+            if (prev[index]) {
+                prev[index] = false;
+            } else {
+                prev[index] = true;
+            }
+            return prev;
+        })
+    }
     
     return (
         <SafeAreaView>
@@ -168,8 +184,11 @@ const StartWorkout = () => {
                                     innerText = {workout.name}
                                     setCount = {workout.reps.length}
                                     setAvg = {workout.repsAvg}
+                                    onPress = {toggleSetDetails}
                                 />
                                 {
+                                    (showSetDetails[index])
+                                    ?
                                     workout.reps.map((set, index) => {
                                         return (
                                             <View key = {index}>
@@ -180,6 +199,7 @@ const StartWorkout = () => {
                                             </View>
                                         )
                                     })
+                                    : null
                                 } 
                                 <Text>
                                     ----------------------------------
