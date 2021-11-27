@@ -2,10 +2,10 @@ import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
 const WorkoutStartBox = ( params ) => {
-    const { innerText } = params
+    const { index, innerText, setCount, setAvg } = params
     return (
         <View>
-            <Text>{innerText}</Text>
+            <Text>{innerText}, {setCount}, {setAvg}</Text>
         </View>
     )
 }

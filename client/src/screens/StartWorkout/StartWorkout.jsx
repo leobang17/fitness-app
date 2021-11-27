@@ -26,20 +26,21 @@ const StartWorkout = () => {
     useEffect(() => {
         const getWorkoutList = async () => {
             const workoutRes = await axios.get(`${URI}/workout`);
-            workoutRes.data.map(async (workout) => {
+            const setArr = [];
+            for (let workout of workoutRes.data) {
                 const repsRes = await axios.get(`${URI}/setDetail`);
-                const tempArr = [];
                 workout.reps = repsRes.data;
                 workout.repsAvg = 0;
                 repsRes.data.map((repsResIter) => {
                     workout.repsAvg += parseInt(repsResIter.weight / repsRes.data.length);
                 })
+
                 // 해당 루틴 몇번 실행했는지.
-                tempArr.length = repsRes.data.length;
-                tempArr.fill(false);
-                setRepsDone((prev) => [...prev, tempArr]);
-            })
-            setWorkoutList((prev) => [...prev, ...workoutRes.data]);
+                const tempArr = new Array(repsRes.data.length).fill(false);
+                setArr.push(tempArr);
+            }
+            setWorkoutList(workoutRes.data);
+            setRepsDone(setArr);
         }
         getWorkoutList();
     }, [])
@@ -169,10 +170,10 @@ const StartWorkout = () => {
                                 <WorkoutStartBox 
                                     index = {index}
                                     innerText = {workout.name}
+                                    setCount = {workout.reps.length}
+                                    setAvg = {workout.repsAvg}
                                 />
                                 {
-                                    (workout.reps)
-                                    ?
                                     workout.reps.map((set, index) => {
                                         return (
                                             <View key = {index}>
@@ -183,15 +184,13 @@ const StartWorkout = () => {
                                             </View>
                                         )
                                     })
-                                    : null
                                 } 
                                 <Text>
                                     ----------------------------------
                                 </Text>
                             </View>
                             
-                        )
-                        
+                        )   
                     })
                 }
             </View>
