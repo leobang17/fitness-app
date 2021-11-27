@@ -49,10 +49,6 @@ const StartWorkout = () => {
         console.log(workoutList);
     }, [workoutList]);
 
-    // useEffect(() => {
-    //     console.log(repsDone);
-    // }, [repsDone]);
-
     useEffect(() => {        
         minuteCalculator();   
         if (timer <= 0) {
