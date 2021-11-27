@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState, useRef } from 'react'
-import { View, Text, TouchableOpacity, Button, StyleSheet, Dimensions } from 'react-native'
+import { View, Text, TouchableOpacity, Button, StyleSheet, Dimensions, ScrollView } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { URI } from '..';
 import { AddStartBtn, WorkoutStartBox } from '../../components';
@@ -48,7 +48,7 @@ const StartWorkout = () => {
     }, [])
 
     useEffect(() => {
-        console.log(showSetDetails);
+        // console.log(showSetDetails);
     }, [showSetDetails]);
 
     useEffect(() => {        
@@ -122,8 +122,6 @@ const StartWorkout = () => {
     }
 
     const toggleSetDetails = (index) => {
-        console.log("터치됨", index);
-        // console.log(showSetDetails);
         setShowSetDetails((prev) => {
             prev = [...prev];
             if (prev[index]) {
@@ -136,7 +134,7 @@ const StartWorkout = () => {
     }
     
     return (
-        <SafeAreaView>
+        <ScrollView style = {styles.container}>
             <View style = {styles.timer__area}>
                 <View style = {styles.timer__time__area}>
                     <View style = {styles.timer__time}>
@@ -182,8 +180,10 @@ const StartWorkout = () => {
                                 <WorkoutStartBox 
                                     index = {index}
                                     innerText = {workout.name}
-                                    setCount = {workout.reps.length}
+                                    // setCount = {workout.reps.length}
+                                    setCount = {index + 1}
                                     setAvg = {workout.repsAvg}
+                                    repsDone = {repsDone[index]}
                                     onPress = {toggleSetDetails}
                                 />
                                 {
@@ -210,12 +210,12 @@ const StartWorkout = () => {
                     })
                 }
             </View>
-        </SafeAreaView>
+        </ScrollView>
     )
 }
 
 // Custom Hooks
-function useInterval(callback, delay) {
+const useInterval = (callback, delay) => {
     const intervalRef = useRef();
     const callbackRef = useRef(callback);
 
@@ -237,7 +237,9 @@ function useInterval(callback, delay) {
 export default StartWorkout;
 
 const styles = StyleSheet.create({
-    container : {},
+    container : {
+        paddingTop: 50
+    },
     timer__area: {
         alignItems: 'center',
         alignSelf: 'center',
