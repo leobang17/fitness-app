@@ -3,7 +3,7 @@ import React, { useEffect, useState, useRef } from 'react'
 import { View, Text, TouchableOpacity, Button, StyleSheet, Dimensions, ScrollView } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { URI } from '..';
-import { AddStartBtn, TimerBox, WorkoutStartBox } from '../../components';
+import { AddStartBtn, TimerBox, WorkoutStartBox, WorkoutStartSetBox } from '../../components';
 
 const { width } = Dimensions.get('window');
 const TIMER_FONTSIZE = 40;
@@ -79,12 +79,11 @@ const StartWorkout = () => {
                                     ?
                                     workout.reps.map((set, index) => {
                                         return (
-                                            <View key = {index}>
-                                                <Text>
-                                                    {set.reps} reps
-                                                    {set.weight} kgs
-                                                </Text>
-                                            </View>
+                                            <WorkoutStartSetBox
+                                                key = {index}  
+                                                reps = {set.reps}
+                                                weight = {set.weight}
+                                            />
                                         )
                                     })
                                     : null
