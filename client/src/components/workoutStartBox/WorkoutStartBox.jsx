@@ -2,12 +2,12 @@ import React from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
 const WorkoutStartBox = ( params ) => {
-    const { index, innerText, setCount, setAvg, onPress, } = params;
-    const repsDone = new Array(setCount).fill(false);
+    const { index, innerText, setCount, setAvg, onPress, repsDone } = params;
 
     const calcBarWidth = (barCount) => {
         return `${(100 - (barCount - 1)) / barCount}%`
     }
+
     return (
         <TouchableOpacity
             style = {styles.container}
@@ -25,10 +25,18 @@ const WorkoutStartBox = ( params ) => {
                 {
                     repsDone?
                     repsDone.map((repsDoneIter, index) => {
+                        let [ isRightEnd, isLeftEnd ] = [false, false]
+                        if (index === 0) {
+                            isLeftEnd = true;
+                        } else if (index === repsDone.length - 1) {
+                            isRightEnd = true;
+                        }
+                        // console.log(index, isRightEnd, isLeftEnd, "씨발");
+
                         return (
                             <View 
                                 key = {index}
-                                style = {dstyles(calcBarWidth(setCount)).container}
+                                style = {dstyles(calcBarWidth(setCount), repsDoneIter, isLeftEnd, isRightEnd).bar}
                             >
                             </View>
                         )
@@ -60,7 +68,6 @@ const styles = StyleSheet.create({
     status__area: {
         width: "80%",
         height: 10,
-        backgroundColor: "yellow",
         flexDirection: "row",
         justifyContent: "space-between"
     }, 
@@ -68,10 +75,14 @@ const styles = StyleSheet.create({
     },
 })
 
-const dstyles = (props) => StyleSheet.create({
-    container: {
-        width: props,
+const dstyles = (barWidth, isDone, isLeftEnd, isRightEnd) => StyleSheet.create({
+    bar: {
+        width: barWidth,
         height: "100%",
-        backgroundColor: "blue"
+        backgroundColor: isDone ? "yellow" : "white",
+        borderTopLeftRadius: isLeftEnd ? 10 : null,
+        borderBottomLeftRadius: isLeftEnd ? 10 : null,
+        borderTopRightRadius: isRightEnd ? 10 : null,
+        borderBottomRightRadius: isRightEnd ? 10 : null
     }
 })

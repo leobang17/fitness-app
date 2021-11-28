@@ -180,8 +180,7 @@ const StartWorkout = () => {
                                 <WorkoutStartBox 
                                     index = {index}
                                     innerText = {workout.name}
-                                    // setCount = {workout.reps.length}
-                                    setCount = {index + 1}
+                                    setCount = {workout.reps.length}
                                     setAvg = {workout.repsAvg}
                                     repsDone = {repsDone[index]}
                                     onPress = {toggleSetDetails}
