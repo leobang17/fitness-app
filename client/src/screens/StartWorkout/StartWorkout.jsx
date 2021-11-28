@@ -43,6 +43,7 @@ const StartWorkout = () => {
         // console.log(showSetDetails);
     }, [showSetDetails]);
 
+
     // Event Handlers
     const toggleSetDetails = (index) => {
         setShowSetDetails((prev) => {
@@ -56,10 +57,10 @@ const StartWorkout = () => {
         })
     }
     
+    // Render
     return (
         <ScrollView style = {styles.container}>
             <TimerBox />
-
             <View style = {styles.workout__area}>
                 {
                     workoutList.map((workout, index) => {
@@ -100,26 +101,6 @@ const StartWorkout = () => {
         </ScrollView>
     )
 }
-
-// Custom Hooks
-const useInterval = (callback, delay) => {
-    const intervalRef = useRef();
-    const callbackRef = useRef(callback);
-
-    useEffect(() => {
-        callbackRef.current = callback;
-    }, [callback]);
-
-    useEffect(() => {
-        if (typeof delay === "number") {
-            intervalRef.current = setInterval(() => callbackRef.current(), delay);
-        }
-        return () => clearInterval(intervalRef.current);
-    }, [delay]);
-
-    return intervalRef;
-}
-
 
 export default StartWorkout;
 
