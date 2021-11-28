@@ -31,7 +31,6 @@ const WorkoutStartBox = ( params ) => {
                         } else if (index === repsDone.length - 1) {
                             isRightEnd = true;
                         }
-                        // console.log(index, isRightEnd, isLeftEnd, "씨발");
 
                         return (
                             <View 
@@ -80,9 +79,9 @@ const dstyles = (barWidth, isDone, isLeftEnd, isRightEnd) => StyleSheet.create({
         width: barWidth,
         height: "100%",
         backgroundColor: isDone ? "yellow" : "white",
-        borderTopLeftRadius: isLeftEnd ? 10 : null,
-        borderBottomLeftRadius: isLeftEnd ? 10 : null,
-        borderTopRightRadius: isRightEnd ? 10 : null,
-        borderBottomRightRadius: isRightEnd ? 10 : null
+        borderTopLeftRadius: isLeftEnd ? 3 : null,
+        borderBottomLeftRadius: isLeftEnd ? 3 : null,
+        borderTopRightRadius: isRightEnd ? 3 : null,
+        borderBottomRightRadius: isRightEnd ? 3 : null
     }
 })

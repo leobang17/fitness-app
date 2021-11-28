@@ -8,3 +8,4 @@ export { default as WorkoutBox } from "./workoutBox/WorkoutBox";
 export { default as TypeBox } from "./typeBox/TypeBox";
 export { default as RoutineBox2 } from "./routineBox2/RoutineBox2";
 export { default as WorkoutStartBox } from "./workoutStartBox/WorkoutStartBox";
+export { default as TimerBox } from "./timerBox/TimerBox";

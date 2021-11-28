@@ -3,25 +3,17 @@ import React, { useEffect, useState, useRef } from 'react'
 import { View, Text, TouchableOpacity, Button, StyleSheet, Dimensions, ScrollView } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { URI } from '..';
-import { AddStartBtn, WorkoutStartBox } from '../../components';
+import { AddStartBtn, TimerBox, WorkoutStartBox } from '../../components';
 
 const { width } = Dimensions.get('window');
 const TIMER_FONTSIZE = 40;
 
 const StartWorkout = () => {
     // States
-    const [timer, setTimer] = useState(0);
-    const [minute, setMinute] = useState("");
-    const [second, setSecond] = useState("");
-    const [milliSecond, setMilliSecond] = useState("");
-    const [toggleTimer, setToggleTimer] = useState(false);
-    const [toggleBtnName, setToggleBtnName] = useState("시작");
-    const [isTimerRunning, setIsTimerRunning] = useState(false);
     const [workoutList, setWorkoutList] = useState([]);
     const [showSetDetails, setShowSetDetails] = useState([]);
     const [repsDone, setRepsDone] = useState([]);
-    const startTimeRef = useRef(0);
-    const leftTimeRef = useRef(0);
+
 
     // Hooks
     useEffect(() => {
@@ -51,76 +43,7 @@ const StartWorkout = () => {
         // console.log(showSetDetails);
     }, [showSetDetails]);
 
-    useEffect(() => {        
-        minuteCalculator();   
-        if (timer <= 0) {
-            setToggleTimer(false);
-            setIsTimerRunning(false);
-            setTimer(0);
-        }
-    }, [timer])
-    
-    useEffect(() => {
-        if (toggleTimer) {
-            startTimeRef.current = Date.now();
-            leftTimeRef.current = timer;
-            setIsTimerRunning(true);
-        } else if (!toggleTimer || timer < 0) {
-            // setIsTimerRunning(false);
-        } 
-    }, [toggleTimer])
-    
-    useEffect(() => {
-        if (!isTimerRunning) {
-            setToggleBtnName('시작');
-        } else if (isTimerRunning && !toggleTimer) {
-            setToggleBtnName('다시시작');
-        } else if (isTimerRunning && toggleTimer) {
-            setToggleBtnName('일시정지');
-        }
-    }, [isTimerRunning, toggleTimer])
-    
-
-    // Custon Hooks
-    useInterval(() => {
-        timeDecrement();
-    }, toggleTimer ? 10 : null);
-    
-
     // Event Handlers
-    const addTime = (time) => {
-        setTimer((prev) => prev + time)
-        leftTimeRef.current += time;
-    }
-    
-    const minuteCalculator = () => {
-        let toSecond = parseInt(timer / 1000);
-        let tempMinute = parseInt(toSecond / 60).toString();
-        let tempSecond = parseInt(toSecond % 60).toString();
-        let tempMilliSecond = parseInt((timer % 1000) / 10).toString();
-        
-        setMinute(tempMinute);
-        setSecond(tempSecond);
-        setMilliSecond(tempMilliSecond);
-    }
-    
-    const toggleTimerFunc = () => {
-        if (toggleTimer) {
-            setToggleTimer(false)
-        } else if (!toggleTimer && timer > 0){
-            setToggleTimer(true)
-        }
-    }
-    
-    const timeDecrement = () => {
-        const timePassed = Date.now() - startTimeRef.current;
-        setTimer(leftTimeRef.current - timePassed);
-    }
-    
-    const clearTime = () => {
-        setTimer(0);
-    }
-
     const toggleSetDetails = (index) => {
         setShowSetDetails((prev) => {
             prev = [...prev];
@@ -135,43 +58,8 @@ const StartWorkout = () => {
     
     return (
         <ScrollView style = {styles.container}>
-            <View style = {styles.timer__area}>
-                <View style = {styles.timer__time__area}>
-                    <View style = {styles.timer__time}>
-                        <Text style = {styles.timer__time__text}>{minute.padStart(2, "0")}</Text>
-                    </View>
-                    <View style = {styles.timer__symbol}>
-                        <Text style = {styles.timer__symbol__text}>:</Text>
-                    </View>
-                    <View style = {styles.timer__time}>
-                        <Text style = {styles.timer__time__text}>{second.padStart(2, "0")}</Text>
-                    </View>
-                    <View style = {styles.timer__symbol}>
-                        <Text style = {styles.timer__symbol__text}>.</Text>
-                    </View>
-                    <View style = {styles.timer__time}>
-                        <Text style = {styles.timer__time__text}>{milliSecond.padStart(2, "0")}</Text>
-                    </View>
-                </View>
-                <View style = {styles.timer__btn__area}>
-                    <AddStartBtn
-                        params = {{innerText: "+10sec", type: "startWorkout", onPressParams: 10 * 1000}}
-                        onPress = {addTime}
-                    />
-                    <AddStartBtn
-                        params = {{innerText: "+30sec", type: "startWorkout", onPressParams: 30 * 1000}}
-                        onPress = {addTime}
-                    />
-                    <AddStartBtn
-                        params = {{innerText: "+60sec", type: "startWorkout", onPressParams: 60 * 1000}}
-                        onPress = {addTime}
-                    />
-                </View>
-                <View style = {styles.timer__btn__toggle}>
-                    <Button title = {toggleBtnName} onPress = {() => toggleTimerFunc()} />
-                    <Button title = {"초기화"} onPress = {() => clearTime()} />
-                </View>
-            </View>
+            <TimerBox />
+
             <View style = {styles.workout__area}>
                 {
                     workoutList.map((workout, index) => {
@@ -239,39 +127,4 @@ const styles = StyleSheet.create({
     container : {
         paddingTop: 50
     },
-    timer__area: {
-        alignItems: 'center',
-        alignSelf: 'center',
-        width: width * 0.9,
-        backgroundColor: '#EAEAEA',
-        borderRadius: 15
-    },
-    timer__time__area: {
-        flexDirection: 'row',
-        justifyContent: 'flex-start'
-    },
-    timer__time__text: {
-        fontSize: TIMER_FONTSIZE,
-        width: 55, 
-        textAlign: 'center',
-        paddingTop: 20
-    },
-    timer__symbol__text: {
-        fontSize: TIMER_FONTSIZE,
-        width: 10,
-        textAlign: 'center',
-        paddingTop: 20
-    },
-    timer__btn__area: {
-        width: '95%',
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        marginVertical: 10
-    },
-    timer__btn__toggle: {
-        width: '70%',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginBottom: 15
-    }
 })
