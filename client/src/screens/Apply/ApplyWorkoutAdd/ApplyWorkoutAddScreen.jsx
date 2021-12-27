@@ -105,7 +105,6 @@ const ApplyWorkoutAddScreen = ({ navigation }) => {
                                     btnToggle = {typeToggle}
                                     isSelected = {isSelected}
                                 />
-
                             )
                         })
                     }

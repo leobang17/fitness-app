@@ -1,12 +1,8 @@
 import axios from 'axios';
-import React, { useEffect, useState, useRef } from 'react'
-import { View, Text, TouchableOpacity, Button, StyleSheet, Dimensions, ScrollView } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import React, { useEffect, useState } from 'react'
+import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import { URI } from '..';
-import { AddStartBtn, TimerBox, WorkoutStartBox, WorkoutStartSetBox } from '../../components';
-
-const { width } = Dimensions.get('window');
-const TIMER_FONTSIZE = 40;
+import { TimerBox, WorkoutStartBox, WorkoutStartSetBox } from '../../components/index';
 
 const StartWorkout = () => {
     // States
@@ -60,7 +56,8 @@ const StartWorkout = () => {
     // Render
     return (
         <ScrollView style = {styles.container}>
-            <TimerBox />
+            <TimerBox/>
+            <View style = {{width: "100%", height: 200, marginVertical: 50}}/>
             <View style = {styles.workout__area}>
                 {
                     workoutList.map((workout, index) => {
@@ -76,7 +73,7 @@ const StartWorkout = () => {
                                 />
                                 {
                                     (showSetDetails[index])
-                                    ?
+                                    &&
                                     workout.reps.map((set, index) => {
                                         return (
                                             <WorkoutStartSetBox
@@ -86,7 +83,6 @@ const StartWorkout = () => {
                                             />
                                         )
                                     })
-                                    : null
                                 } 
                                 <Text>
                                     ----------------------------------

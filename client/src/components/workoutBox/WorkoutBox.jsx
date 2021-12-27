@@ -20,7 +20,6 @@ const WorkoutBox = ({ params, workoutToggle, workoutMarkToggle, isSelected, isMa
                         <FontAwesome name="circle-o" size={30} color="#87C5D6" style = {styles.checkBtn} />
                     )
                 }
-
                 <Text
                     style = {[
                         styles.text

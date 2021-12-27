@@ -1,4 +1,4 @@
-export { default as Login } from "./Login/Login";
+export { default as AuthMain } from "./AuthMain/AuthMain";
 export {default as AddRoutineScreen } from "./AddRoutine/AddRoutineScreen"
 export {default as AddWorkoutScreen } from "./AddRoutine/AddWorkoutScreen"
 export {default as StartWorkoutScreen } from "./StartWorkout/StartWorkout"
@@ -16,8 +16,9 @@ export {default as ManageWorkoutAddScreen} from "./Manage/ManageWorkoutAdd/Manag
 
 // 집
 export const URI = "http://192.168.0.17:3000/api";
+export const SERVER = "http://192.168.0.17:8000";
 // 에이바우트 2 5G
-// export const URI = "http://172.30.1.36:3000/api";
+// export const URI = "http://172.30.1.1:3000/api";
 // 강남 엔젤리너스 
 // export const URI = "http://172.30.1.2:3000/api";
 // 서울시청역 

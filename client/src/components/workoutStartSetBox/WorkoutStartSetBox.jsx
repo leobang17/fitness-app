@@ -1,17 +1,17 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
 const WorkoutStartSetBox = (params) => {
     const { key, reps, weight } = params;
     return (
-        <View>
+        <TouchableOpacity>
             <Text>
                 {reps} reps
             </Text>
             <Text>
                 {weight} kgs
             </Text>
-        </View>
+        </TouchableOpacity>
     )
 }
 

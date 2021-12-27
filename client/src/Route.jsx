@@ -14,11 +14,13 @@ import {
     ManageRoutineScreen, 
     ManageWorkoutAddScreen, 
     ManageWorkoutScreen, 
-    StartWorkoutScreen 
+    StartWorkoutScreen,
+    AuthMain,
 } from './screens';
 
 
 const AppStack = createNativeStackNavigator();
+const AuthStack = createNativeStackNavigator();
 
 const MainBottomTab = createBottomTabNavigator();
 const ManageRoutineStack = createNativeStackNavigator();
@@ -39,6 +41,14 @@ const Route = () => {
         </AppStack.Navigator>
     )
 }
+
+const Auth = () => {
+    return (
+        <AuthStack.Navigator screenOptions={{headerShown : false}}>
+            <AuthStack.Screen name = "AuthMain" component = {AuthMain} />
+        </AuthStack.Navigator>
+    )
+};
 
 
 const _MainBottomTab = () => {
@@ -106,5 +116,4 @@ const _ApplyWorkoutStack = () => {
     )
 }
 
-
-export default Route
+export { Route, Auth };
