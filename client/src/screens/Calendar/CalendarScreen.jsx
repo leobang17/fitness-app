@@ -15,10 +15,21 @@ const wait = (timeout) => {
     return new Promise(resolve => setTimeout(resolve, timeout));
   }
 
+
+// get current YYYY-MM-DD for string;
+const getCurrentDate = (today) => {
+    const currentYear = today.getFullYear().toString().padStart(4, '0');
+    const currentMonth = (today.getMonth() + 1).toString().padStart(2, '0');
+    const currentDate = today.getDate().toString().padStart(2, '0');
+    const todayString = `${currentYear}-${currentMonth}-${currentDate}`;
+
+    return todayString;
+}
+
 const CalendarScreen = ({ navigation }) => {
     // Value
-    let today = new Date()
-    today = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
+    const today = getCurrentDate(new Date());
+
 
     // States
     const [friendsList, setFriendsList] = useState([]);
@@ -58,6 +69,7 @@ const CalendarScreen = ({ navigation }) => {
             }
         }
         getRecordLists();
+        console.log(selectedDate);
     }, [selectedId, selectedDate]);
     
 
@@ -71,6 +83,9 @@ const CalendarScreen = ({ navigation }) => {
     const selectHandler = (key) => {
         setSelectedId(key)
     }
+
+    // General function
+    
 
     // map component
     const friend_components = (friendsList)? friendsList.map((friend, index) => {

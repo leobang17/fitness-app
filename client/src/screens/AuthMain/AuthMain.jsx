@@ -9,8 +9,6 @@ const AuthMain = ({ route }) => {
     const [password, setPassword] = useState('');
 
     // Handlers
-    const emailHandler = text => setEmail(text);
-    const passwordHandler = text => setPassword(text);
     const submitHandler = async () => {
         const payload = {
             email, 
@@ -28,12 +26,12 @@ const AuthMain = ({ route }) => {
         <View style = {styles.container}>
             <TextInput 
                 placeholder='이메일을 입력허세요'
-                onChangeText={emailHandler}
+                onChangeText={setEmail}
             />
             <TextInput
                 placeholder='비밀번호를 입력하세요'
                 secureTextEntry = {true}
-                onChangeText={passwordHandler}
+                onChangeText={setPassword}
             />
             <Button
                 title='로그인'

@@ -56,7 +56,7 @@ const StartWorkout = () => {
     // Render
     return (
         <ScrollView style = {styles.container}>
-            <TimerBox/>
+            {/* <TimerBox /> */}
             <View style = {{width: "100%", height: 200, marginVertical: 50}}/>
             <View style = {styles.workout__area}>
                 {

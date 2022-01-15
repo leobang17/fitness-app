@@ -15,7 +15,7 @@ export {default as ManageWorkoutScreen} from "./Manage/ManageWorkout/ManageWorko
 export {default as ManageWorkoutAddScreen} from "./Manage/ManageWorkoutAdd/ManageWorkoutAddScreen"
 
 // 집
-export const URI = "http://192.168.0.17:3000/api";
+export const URI = "http://192.168.0.170:3000/api";
 export const SERVER = "http://192.168.0.17:8000";
 // 에이바우트 2 5G
 // export const URI = "http://172.30.1.1:3000/api";

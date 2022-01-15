@@ -8,7 +8,7 @@ import { AuthMain } from './src/screens';
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-  const [isSignedIn, setIsSignedIn] = useState(false);
+  const [isSignedIn, setIsSignedIn] = useState(true);
   
   const pressHandler = () => {
     setIsSignedIn(true);
